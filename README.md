@@ -38,7 +38,6 @@ Feel free to open issues or pull requests!
 - **Author**: Xiaolong Luo (Aaron)
 - **Homepage**: https://aaronluo00.github.io/Aaron_Homepage/
 - **Email**: xiaolongluo@g.harvard.edu
-- **Institution**: Harvard School of Engineering and Applied Sciences
 
 ---
 
