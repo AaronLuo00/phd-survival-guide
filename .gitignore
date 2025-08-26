@@ -54,3 +54,6 @@ Thumbs.db
 # Personal notes (if any)
 notes/
 drafts/
+
+# Claude configuration
+CLAUDE.md
