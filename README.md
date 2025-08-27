@@ -16,13 +16,27 @@ This guide shares practical insights to help you avoid detours and accelerate yo
 
 ## 🚀 Quick Start
 
-**View the Guide**: [`new-researcher-handbook.pdf`](new-researcher-handbook.pdf)
+### 📖 Download the Handbook
 
-**Compile from Source**:
+Choose the version that suits your preference:
+
+- **📘 With Icons Version** (Enhanced Visual Design): [`new-researcher-handbook.pdf`](new-researcher-handbook.pdf)  
+  *Features icons and visual enhancements for better readability*
+
+- **📄 Plain Version** (Classic Format): [`new-researcher-handbook-plain.pdf`](new-researcher-handbook-plain.pdf)  
+  *Traditional academic format without icons*
+
+### 🔧 Compile from Source
+
 ```bash
 git clone https://github.com/AaronLuo00/phd-survival-guide.git
 cd phd-survival-guide
+
+# Compile with icons version
 pdflatex new-researcher-handbook.tex
+
+# Compile plain version
+pdflatex new-researcher-handbook-plain.tex
 ```
 
 ## 🤝 Contributing
