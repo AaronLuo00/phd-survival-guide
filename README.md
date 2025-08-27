@@ -57,7 +57,7 @@ Feel free to open issues or pull requests!
 
 ## ⭐ Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=AaronLuo00/phd-survival-guide&type=Date)](https://star-history.com/#AaronLuo00/phd-survival-guide&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=AaronLuo00/phd-survival-guide&type=Date)](https://www.star-history.com/#AaronLuo00/phd-survival-guide&Date)
 
 ---
 
