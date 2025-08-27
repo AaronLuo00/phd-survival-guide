@@ -1,5 +1,7 @@
 # 📚 New Researcher Handbook
 
+[![GitHub stars](https://img.shields.io/github/stars/AaronLuo00/phd-survival-guide?style=social)](https://github.com/AaronLuo00/phd-survival-guide)
+
 A practical handbook for new PhD students and early-career researchers, sharing lessons learned to help you avoid common pitfalls and navigate your research journey smoothly. Written by a 4th-year PhD student at Harvard SEAS.
 
 ## 🎯 What's Inside
