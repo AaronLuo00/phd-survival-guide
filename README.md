@@ -55,6 +55,10 @@ Feel free to open issues or pull requests!
 - **Homepage**: https://aaronluo00.github.io/Aaron_Homepage/
 - **Email**: xiaolongluo@g.harvard.edu
 
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=AaronLuo00/phd-survival-guide&type=Date)](https://star-history.com/#AaronLuo00/phd-survival-guide&Date)
+
 ---
 
 <div align="center">
