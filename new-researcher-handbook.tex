@@ -15,6 +15,55 @@
 \usepackage{CJKutf8}  % For Chinese characters support
 \usepackage{fontawesome5} % For icons
 
+% Configure listings for code syntax highlighting
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{green!50!black}\itshape,
+    backgroundcolor=\color{gray!5},
+    frame=single,
+    rulecolor=\color{gray!30},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+\lstdefinestyle{bashstyle}{
+    language=bash,
+    basicstyle=\ttfamily\small\color{black},
+    keywordstyle=\color{purple}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    backgroundcolor=\color{blue!5},
+    frame=leftline,
+    framerule=3pt,
+    rulecolor=\color{blue!50},
+    numbers=none,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=2
+}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    columns=flexible,
+    breaklines=true
+}
+
+% Define custom itemize bullet commands
+\newcommand{\gooditem}{\item[\color{green!70!black}\faCheck]}
+\newcommand{\baditem}{\item[\color{red!70!black}\faTimes]}
+\newcommand{\toolitem}{\item[\color{blue!70!black}\faCog]}
+\newcommand{\ideaitem}{\item[\color{yellow!80!black}\faLightbulb]}
+\newcommand{\warningitem}{\item[\color{orange}\faExclamationTriangle]}
+\newcommand{\staritem}{\item[\color{goldenyellow}\faStar]}
+\newcommand{\arrowitem}{\item[\color{darkblue}\faArrowRight]}
+
 % Define colors
 \definecolor{darkblue}{RGB}{0,0,139}
 \definecolor{lightgray}{RGB}{240,240,240}
@@ -69,30 +118,30 @@ Dear students,
 
 Looking back, I realize how much time and energy I could have saved if someone had told me:
 \begin{itemize}
-    \item The importance of version control (I lost weeks of work because I didn't use Git properly)
-    \item How to structure presentations (my first conference talk was a disaster—no clear message, too much detail)
-    \item The value of documentation (I couldn't understand my own code from 6 months earlier)
-    \item How to ask good questions in meetings (I stayed silent for months, missing valuable learning opportunities)
+    \ideaitem The importance of version control (I lost weeks of work because I didn't use Git properly)
+    \ideaitem How to structure presentations (my first conference talk was a disaster—no clear message, too much detail)
+    \ideaitem The value of documentation (I couldn't understand my own code from 6 months earlier)
+    \ideaitem How to ask good questions in meetings (I stayed silent for months, missing valuable learning opportunities)
 \end{itemize}
 
 \textbf{These aren't just rules—they're shortcuts to success that I discovered too late:}
 \begin{itemize}
-    \item Clear communication skills will help you share your ideas effectively
-    \item Rigorous research habits will make you a trusted and reliable researcher
-    \item Professional presentation skills will open doors to opportunities
-    \item Good documentation practices will save you countless hours in the future
-    \item Collaborative skills will make you a valued team member anywhere you go
+    \gooditem Clear communication skills will help you share your ideas effectively
+    \gooditem Rigorous research habits will make you a trusted and reliable researcher
+    \gooditem Professional presentation skills will open doors to opportunities
+    \gooditem Good documentation practices will save you countless hours in the future
+    \gooditem Collaborative skills will make you a valued team member anywhere you go
 \end{itemize}
 
 As a PhD candidate in my fourth year, I'm still learning these lessons myself. Every guideline in this manual comes from mistakes I've made or witnessed firsthand. When I emphasize the importance of presentation skills, it's because I've missed many opportunities and left poor impressions due to bad presentations. When I emphasize documentation, it's because I've personally struggled to recreate my own experiments from months earlier.
 
 The habits we develop now will serve us when we're:
 \begin{itemize}
-    \item Presenting at international conferences (where we have one shot to impress)
-    \item Defending our theses (where clarity can make or break the defense)
-    \item Interviewing for our dream jobs (where these skills set us apart)
-    \item Eventually leading our own research teams (where we'll pass on these lessons)
-    \item Pitching ideas to investors or stakeholders (where professionalism matters most)
+    \staritem Presenting at international conferences (where we have one shot to impress)
+    \staritem Defending our theses (where clarity can make or break the defense)
+    \staritem Interviewing for our dream jobs (where these skills set us apart)
+    \staritem Eventually leading our own research teams (where we'll pass on these lessons)
+    \staritem Pitching ideas to investors or stakeholders (where professionalism matters most)
 \end{itemize}
 
 \textbf{My intention is simple:} By sharing what I've learned so far in my PhD journey, I hope we can learn from each other's experiences. This manual isn't written from a position of mastery—it's a collection of lessons I'm still learning, mistakes I'm still making, and habits I'm still building. Let's navigate this journey together and help each other become the researchers we aspire to be.
@@ -996,11 +1045,11 @@ Full Experiments -> Analysis -> Writing -> Submission
 
 \textbf{Tools for Each Stage:}
 \begin{itemize}
-    \item \textbf{Idea Generation}: Notion, Obsidian, Research diary
-    \item \textbf{Literature Review}: Zotero, Mendeley, Connected Papers
-    \item \textbf{Experiments}: Weights \& Biases, MLflow, Sacred
-    \item \textbf{Writing}: LaTeX + Git, Overleaf for collaboration
-    \item \textbf{Project Management}: GitHub Projects, Trello, Asana
+    \toolitem \textbf{Idea Generation}: Notion, Obsidian, Research diary
+    \toolitem \textbf{Literature Review}: Zotero, Mendeley, Connected Papers
+    \toolitem \textbf{Experiments}: Weights \& Biases, MLflow, Sacred
+    \toolitem \textbf{Writing}: LaTeX + Git, Overleaf for collaboration
+    \toolitem \textbf{Project Management}: GitHub Projects, Trello, Asana
 \end{itemize}
 
 \subsubsection{Time Management Strategies}
@@ -1483,7 +1532,7 @@ Image processing & 180s & 48s & 3.8x \\
 \begin{itemize}
     \item \textbf{Python}: Use \texttt{multiprocessing}, \texttt{concurrent.futures}, or \texttt{joblib}
     \item \textbf{NumPy/Pandas}: Vectorized operations instead of loops
-    \item \textbf{Deep Learning}: Batch processing, DataLoader with \texttt{num\_workers > 0}
+    \item \textbf{Deep Learning}: Batch processing, DataLoader with \texttt{num\_workers $>$ 0}
     \item \textbf{Data Processing}: Transform \texttt{map()} → \texttt{parallel\_map()}
 \end{itemize}
 
@@ -1491,36 +1540,44 @@ Image processing & 180s & 48s & 3.8x \\
 
 \textbf{What to Monitor During Development:}
 \begin{itemize}
-    \item \textbf{CPU Usage}: Aim for >80\% utilization across all cores when parallel processing
+    \item \textbf{CPU Usage}: Aim for $>$80\% utilization across all cores when parallel processing
     \item \textbf{Memory Usage}: Watch for memory leaks; avoid swapping to disk
-    \item \textbf{GPU Utilization}: Should be >90\% during deep learning training
+    \item \textbf{GPU Utilization}: Should be $>$90\% during deep learning training
     \item \textbf{I/O Wait}: High I/O wait indicates data loading bottlenecks
 \end{itemize}
 
 \textbf{Common Parallel Processing Pitfalls:}
 \begin{itemize}
-    \item I/O bottlenecks limiting parallel gains
-    \item Python's GIL (use multiprocessing instead of threading for CPU tasks)
-    \item Overhead from creating too many small parallel tasks
-    \item Insufficient memory causing thrashing
+    \warningitem I/O bottlenecks limiting parallel gains
+    \warningitem Python's GIL (use multiprocessing instead of threading for CPU tasks)
+    \warningitem Overhead from creating too many small parallel tasks
+    \warningitem Insufficient memory causing thrashing
 \end{itemize}
 
 \textbf{Quick Reference Commands:}
-\begin{verbatim}
+
+\begin{lstlisting}[style=bashstyle, caption=System Monitoring Commands]
 # Monitor CPU usage
 htop                    # Interactive CPU monitor
-top -u                 # Alternative CPU monitor
+top -u                  # Alternative CPU monitor
 
 # Monitor GPU (NVIDIA)
 nvidia-smi -l 1        # Updates every 1 second
 nvtop                  # Interactive GPU monitor
 gpustat -i 1           # Simple GPU status
+\end{lstlisting}
 
+\begin{lstlisting}[style=pythonstyle, caption=Python Parallel Processing Example]
 # Python parallel example
 from multiprocessing import Pool
+
+def process_func(item):
+    # Your processing logic here
+    return item * 2
+
 with Pool() as p:
     results = p.map(process_func, data_list)
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Pro Tips:}
 \begin{itemize}
