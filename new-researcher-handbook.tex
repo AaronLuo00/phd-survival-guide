@@ -556,6 +556,243 @@ docker push username/myproject:v1
 \end{itemize}
 \end{tcolorbox}
 
+\subsubsection{\faServer~Working with Remote Servers and HPC Clusters}
+
+As a researcher, you'll spend significant time working on remote servers and High-Performance Computing (HPC) clusters. Mastering these environments is crucial for running large-scale experiments and accessing computational resources beyond your local machine.
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!40,title={\faInfoCircle~Why Remote Servers Matter}]
+\textbf{Your laptop is not enough.} Modern research requires:
+\begin{itemize}
+    \item \textbf{GPUs}: Training deep learning models
+    \item \textbf{Memory}: Processing large datasets (100GB+)
+    \item \textbf{Parallel Computing}: Running multiple experiments simultaneously
+    \item \textbf{Collaboration}: Shared environments with your research group
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{\faKey~SSH: Your Gateway to Remote Computing}
+
+SSH (Secure Shell) is your primary tool for accessing remote servers:
+
+\begin{lstlisting}[style=bashstyle]
+# Basic SSH connection
+ssh username@server.example.edu
+
+# SSH with specific port
+ssh -p 2222 username@server.example.edu
+
+# SSH with key authentication (recommended)
+ssh -i ~/.ssh/id_rsa username@server.example.edu
+
+# SSH config file (~/.ssh/config) for shortcuts
+Host myserver
+    HostName server.example.edu
+    User username
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+
+# Then simply connect with:
+ssh myserver
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={Pro Tip: SSH Key Setup}]
+\begin{lstlisting}[style=bashstyle]
+# Generate SSH key pair
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Copy public key to server
+ssh-copy-id username@server.example.edu
+
+# Now you can login without password!
+\end{lstlisting}
+\end{tcolorbox}
+
+\textbf{\faTerminal~Essential Server Commands}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Command} & \textbf{Purpose} \\
+\midrule
+\texttt{htop} & Interactive process viewer (CPU/Memory usage) \\
+\texttt{nvidia-smi} & GPU status and usage \\
+\texttt{df -h} & Disk space usage \\
+\texttt{du -sh *} & Directory sizes \\
+\texttt{ps aux | grep username} & Your running processes \\
+\texttt{kill -9 PID} & Force terminate a process \\
+\texttt{nohup command \&} & Run command that survives logout \\
+\texttt{screen / tmux} & Persistent terminal sessions \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{\faDesktop~Tmux: Your Best Friend on Servers}
+
+Tmux allows you to maintain persistent sessions that survive disconnections:
+
+\begin{lstlisting}[style=bashstyle]
+# Start new tmux session
+tmux new -s experiment
+
+# Detach from session (Ctrl+b, then d)
+# Your processes keep running!
+
+# List sessions
+tmux ls
+
+# Reattach to session
+tmux attach -t experiment
+
+# Kill session
+tmux kill-session -t experiment
+
+# Essential tmux shortcuts (after Ctrl+b):
+# c - create new window
+# n/p - next/previous window
+# % - split pane vertically
+# " - split pane horizontally
+# arrow keys - navigate panes
+\end{lstlisting}
+
+\textbf{\faSync~Data Transfer Methods}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={Transferring Files to/from Servers}]
+\begin{lstlisting}[style=bashstyle]
+# SCP: Simple file copy
+scp local_file.txt username@server:~/remote_path/
+scp username@server:~/remote_file.txt ./local_path/
+
+# Rsync: Efficient sync (resume support, compression)
+rsync -avz --progress local_dir/ username@server:~/remote_dir/
+rsync -avz --exclude='*.pyc' source/ dest/
+
+# SFTP: Interactive file transfer
+sftp username@server
+> put local_file.txt
+> get remote_file.txt
+> exit
+
+# For large datasets, use compression
+tar -czf data.tar.gz data_folder/
+scp data.tar.gz username@server:~/
+# On server:
+tar -xzf data.tar.gz
+\end{lstlisting}
+\end{tcolorbox}
+
+\textbf{\faTasks~SLURM: Job Scheduling System}
+
+Most HPC clusters use SLURM for resource management:
+
+\begin{lstlisting}[style=bashstyle]
+# Submit a job
+sbatch job_script.sh
+
+# Check job status
+squeue -u username
+
+# Cancel a job
+scancel job_id
+
+# Interactive session with GPU
+srun --gres=gpu:1 --mem=32G --time=4:00:00 --pty bash
+
+# Check available resources
+sinfo
+\end{lstlisting}
+
+\textbf{Sample SLURM Job Script:}
+
+\begin{lstlisting}[style=bashstyle, caption=job\_script.sh]
+#!/bin/bash
+#SBATCH --job-name=my_experiment
+#SBATCH --output=logs/%j.out
+#SBATCH --error=logs/%j.err
+#SBATCH --time=24:00:00
+#SBATCH --mem=64G
+#SBATCH --gres=gpu:v100:1
+#SBATCH --cpus-per-task=8
+
+# Load modules
+module load python/3.9
+module load cuda/11.7
+
+# Activate conda environment
+conda activate myenv
+
+# Run experiment
+python train.py --config config.yaml
+\end{lstlisting}
+
+\textbf{\faMicrochip~GPU Management}
+
+\begin{lstlisting}[style=bashstyle]
+# Check GPU availability
+nvidia-smi
+
+# Monitor GPU usage in real-time
+watch -n 1 nvidia-smi
+
+# Specify GPU for your program
+CUDA_VISIBLE_DEVICES=0,1 python train.py
+
+# Check CUDA version
+nvcc --version
+
+# Python: Check GPU in code
+import torch
+print(torch.cuda.is_available())
+print(torch.cuda.device_count())
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=red!5,colframe=red!40,title={\faExclamationTriangle~Server Etiquette}]
+\textbf{DO:}
+\begin{itemize}
+    \item Check resource availability before running jobs
+    \item Use job schedulers for long-running tasks
+    \item Clean up temporary files regularly
+    \item Document your environment setup
+    \item Communicate with team about resource usage
+\end{itemize}
+
+\textbf{DON'T:}
+\begin{itemize}
+    \item Run intensive jobs on login nodes
+    \item Monopolize all GPUs without coordination
+    \item Store large datasets in home directory (use scratch/data folders)
+    \item Leave zombie processes running
+    \item Hardcode absolute paths in shared code
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{Server Workflow Best Practices:}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={\faLightbulb~Recommended Workflow}]
+\begin{enumerate}
+    \item \textbf{Development}: Write and test code locally or in Jupyter
+    \item \textbf{Small-scale Testing}: Test on server with small dataset
+    \item \textbf{Resource Estimation}: Profile memory and time requirements
+    \item \textbf{Full Experiments}: Submit batch jobs with appropriate resources
+    \item \textbf{Monitoring}: Use tmux to monitor long-running jobs
+    \item \textbf{Results Transfer}: Sync results back to local machine
+    \item \textbf{Cleanup}: Remove temporary files and failed experiments
+\end{enumerate}
+\end{tcolorbox}
+
+\textbf{Quick Server Checklist:}
+
+\begin{itemize}
+    \item[$\square$] SSH keys configured for passwordless login
+    \item[$\square$] Tmux/Screen session for persistent work
+    \item[$\square$] Conda environment set up and activated
+    \item[$\square$] Data transferred to appropriate directory
+    \item[$\square$] Job script tested with small dataset
+    \item[$\square$] Resource requirements estimated
+    \item[$\square$] Output directory created for logs
+    \item[$\square$] Backup of important results configured
+\end{itemize}
+
 \subsubsection{Time Management}
 \begin{itemize}
     \item \textbf{Deep Work Blocks}: Reserve 2-4 hour blocks for focused research
