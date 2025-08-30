@@ -22,6 +22,46 @@
 \definecolor{royalpurple}{RGB}{102,51,153}
 \definecolor{goldenyellow}{RGB}{255,193,37}
 
+% Configure listings for code syntax highlighting
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{green!50!black}\itshape,
+    backgroundcolor=\color{gray!5},
+    frame=single,
+    rulecolor=\color{gray!30},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+\lstdefinestyle{bashstyle}{
+    language=bash,
+    basicstyle=\ttfamily\small\color{black},
+    keywordstyle=\color{purple}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    backgroundcolor=\color{blue!5},
+    frame=leftline,
+    framerule=3pt,
+    rulecolor=\color{blue!50},
+    numbers=none,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=2
+}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    columns=flexible,
+    breaklines=true
+}
+
 % Header and footer
 \pagestyle{fancy}
 \setlength{\headheight}{14.5pt}
@@ -323,6 +363,188 @@ Every figure MUST have:
     \item \textbf{Reproducibility}: Always set random seeds and log all parameters
     \item \textbf{Backup}: Use git and cloud storage; never trust a single copy
 \end{itemize}
+
+\subsubsection{Experimental Reproducibility: The Foundation of Credible Research}
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!40,title={Why Reproducibility Matters}]
+\textbf{The Reproducibility Crisis:} Studies show that 70\% of researchers have failed to reproduce another scientist's experiments, and more than 50\% have failed to reproduce their own experiments.
+
+\textbf{Your research is only as good as its reproducibility.} Without it, your findings cannot be verified, extended, or built upon by others — or even by yourself six months later!
+\end{tcolorbox}
+
+\textbf{Three Pillars of Reproducible Research:}
+
+\begin{enumerate}
+    \item \textbf{Environment Management} — Exact software versions and dependencies
+    \item \textbf{Data and Code Versioning} — Track all changes systematically
+    \item \textbf{Documentation} — Clear instructions for replication
+\end{enumerate}
+
+\subsubsection{Environment Management with Conda}
+
+Conda is your Swiss Army knife for managing Python environments and dependencies. It ensures that your code runs identically across different machines and time periods.
+
+\textbf{Getting Started with Conda:}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={Essential Conda Commands}]
+\begin{lstlisting}[style=bashstyle]
+# Create a new environment
+conda create -n myproject python=3.9
+
+# Activate the environment
+conda activate myproject
+
+# Install packages
+conda install numpy pandas scikit-learn
+pip install special-package  # For pip-only packages
+
+# Export environment
+conda env export > environment.yml
+
+# Recreate environment from file
+conda env create -f environment.yml
+
+# List all environments
+conda env list
+
+# Remove an environment
+conda env remove -n myproject
+\end{lstlisting}
+\end{tcolorbox}
+
+\textbf{Best Practices for Conda:}
+\begin{itemize}
+    \item \textbf{One Project, One Environment}: Never use the base environment for projects
+    \item \textbf{Version Pinning}: Always specify exact versions in production
+    \item \textbf{Regular Exports}: Update environment.yml with every dependency change
+    \item \textbf{Documentation}: Include setup instructions in your README
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={Pro Tip: Conda vs pip}]
+\textbf{When to use Conda:}
+\begin{itemize}
+    \item Scientific packages (numpy, scipy, pandas)
+    \item Complex dependencies (CUDA, MKL)
+    \item Cross-platform compatibility needed
+\end{itemize}
+
+\textbf{When to use pip:}
+\begin{itemize}
+    \item Latest deep learning frameworks
+    \item Niche or cutting-edge packages
+    \item Package not available in conda channels
+\end{itemize}
+
+\textbf{Golden Rule:} Install with conda first, use pip as fallback. Always use pip \textit{inside} a conda environment, never globally!
+\end{tcolorbox}
+
+\subsubsection{Containerization with Docker}
+
+Docker takes reproducibility to the next level by packaging your entire computational environment — OS, system libraries, and all dependencies — into a portable container.
+
+\textbf{Docker Fundamentals:}
+
+\begin{tcolorbox}[colback=purple!5,colframe=purple!40,title={Docker Architecture}]
+\begin{center}
+\begin{tabular}{ll}
+\textbf{Component} & \textbf{Purpose} \\
+\midrule
+Image & Blueprint for creating containers (like a snapshot) \\
+Container & Running instance of an image \\
+Dockerfile & Recipe for building an image \\
+Registry & Storage for sharing images (e.g., Docker Hub) \\
+\end{tabular}
+\end{center}
+\end{tcolorbox}
+
+\textbf{Sample Dockerfile for ML Research:}
+
+\begin{lstlisting}[style=pythonstyle, caption=Dockerfile]
+# Start from official Python image
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project code
+COPY . .
+
+# Set default command
+CMD ["python", "main.py"]
+\end{lstlisting}
+
+\textbf{Essential Docker Commands:}
+
+\begin{lstlisting}[style=bashstyle]
+# Build an image
+docker build -t myproject:v1 .
+
+# Run a container
+docker run -it myproject:v1
+
+# Mount local directory
+docker run -v $(pwd):/app myproject:v1
+
+# List containers
+docker ps -a
+
+# Push to registry
+docker push username/myproject:v1
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=red!5,colframe=red!40,title={When to Use What?}]
+\textbf{Use Conda when:}
+\begin{itemize}
+    \item Working locally or on shared servers
+    \item Need quick iteration and debugging
+    \item Managing Python/R environments
+    \item Team uses similar OS (e.g., all Linux)
+\end{itemize}
+
+\textbf{Use Docker when:}
+\begin{itemize}
+    \item Deploying to production
+    \item Sharing with external collaborators
+    \item Need exact OS-level reproducibility
+    \item Running on different platforms (Mac/Linux/Windows)
+\end{itemize}
+
+\textbf{Use Both when:}
+\begin{itemize}
+    \item Maximum reproducibility is critical
+    \item Publishing computational research
+    \item Building ML pipelines
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{Reproducibility Checklist:}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={Before Publishing Your Research}]
+\begin{itemize}
+    \item[$\square$] \textbf{Environment file} (environment.yml or requirements.txt) included
+    \item[$\square$] \textbf{Random seeds} set for all stochastic processes
+    \item[$\square$] \textbf{Data availability} statement with download links or instructions
+    \item[$\square$] \textbf{README} with step-by-step reproduction instructions
+    \item[$\square$] \textbf{Version information} for all major dependencies
+    \item[$\square$] \textbf{Hardware specifications} documented (GPU, RAM, etc.)
+    \item[$\square$] \textbf{Expected outputs} or results included for verification
+    \item[$\square$] \textbf{Dockerfile} provided for complex environments
+    \item[$\square$] \textbf{Jupyter notebooks} cleared and run top-to-bottom
+    \item[$\square$] \textbf{Tests} to verify key functions work correctly
+\end{itemize}
+\end{tcolorbox}
 
 \subsubsection{Time Management}
 \begin{itemize}
