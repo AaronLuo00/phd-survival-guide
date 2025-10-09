@@ -39,6 +39,11 @@ pdflatex new-researcher-handbook.tex
 pdflatex new-researcher-handbook-plain.tex
 ```
 
+## 📝 Other Useful Guide:
+
+1. A Survival Guide to a PhD by Andrej Karpathy: https://karpathy.github.io/2016/09/07/phd/
+2. 
+
 ## 🤝 Contributing
 
 We welcome contributions! Whether you want to:
