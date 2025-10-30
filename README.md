@@ -42,7 +42,7 @@ pdflatex new-researcher-handbook-plain.tex
 ## 📝 Other Useful Guide:
 
 1. A Survival Guide to a PhD by Andrej Karpathy: https://karpathy.github.io/2016/09/07/phd/
-2. 
+2.  当 CEO 重读 PhD：论智慧与勇气 By Yuanming Hu: https://zhuanlan.zhihu.com/p/1893638374646079902
 
 ## 🤝 Contributing
 
