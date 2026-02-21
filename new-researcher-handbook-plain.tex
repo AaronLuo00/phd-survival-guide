@@ -14,14 +14,6 @@
 \usepackage{float}    % For [H] positioning
 \usepackage{CJKutf8}  % For Chinese characters support
 
-% Define colors
-\definecolor{darkblue}{RGB}{0,0,139}
-\definecolor{lightgray}{RGB}{240,240,240}
-\definecolor{harvardcrimson}{RGB}{165,28,48}
-\definecolor{emeraldgreen}{RGB}{0,155,119}
-\definecolor{royalpurple}{RGB}{102,51,153}
-\definecolor{goldenyellow}{RGB}{255,193,37}
-
 % Configure listings for code syntax highlighting
 \lstdefinestyle{pythonstyle}{
     language=Python,
@@ -61,6 +53,14 @@
     columns=flexible,
     breaklines=true
 }
+
+% Define colors
+\definecolor{darkblue}{RGB}{0,0,139}
+\definecolor{lightgray}{RGB}{240,240,240}
+\definecolor{harvardcrimson}{RGB}{165,28,48}
+\definecolor{emeraldgreen}{RGB}{0,155,119}
+\definecolor{royalpurple}{RGB}{102,51,153}
+\definecolor{goldenyellow}{RGB}{255,193,37}
 
 % Header and footer
 \pagestyle{fancy}
@@ -189,7 +189,7 @@ Every presentation should follow this structure:
 
 \section{Experimental Results Presentation}
 
-\begin{tcolorbox}[colback=yellow!10,colframe=red!50,title=Critical Requirements]
+\begin{tcolorbox}[colback=yellow!10,colframe=red!50,title={Critical Requirements}]
 \textbf{Before presenting ANY experimental results:}
 \begin{enumerate}
     \item Clearly explain the experimental setting
@@ -232,7 +232,7 @@ Every figure MUST have:
 
 \subsubsection{Scientific Color Schemes}
 
-\begin{tcolorbox}[colback=blue!5,colframe=blue!50,title=Professional Color Palettes]
+\begin{tcolorbox}[colback=blue!5,colframe=blue!50,title={Professional Color Palettes}]
 \textbf{Recommended Scientific Color Schemes:}
 
 \textbf{1. Sequential (Single Hue):} For ordered data
@@ -1024,7 +1024,7 @@ Follow the standard scientific paper structure:
 
 \subsection{Academic Writing Style}
 
-\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={Some Personal Writing Advice}]
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={Some Personal Writing Advice }]
 \textbf{1. Clarity Over Complexity:} Big words don't equal better writing. Choose simple, precise language over unnecessarily complex vocabulary.
 
 \textbf{2. Introduce Abbreviations Smoothly:} Always define terms BEFORE abbreviations, and integrate them naturally into your text.
@@ -1353,6 +1353,18 @@ Most top conferences have deadlines 5-6 months before the conference date. Missi
 \end{itemize}
 \end{tcolorbox}
 
+\begin{tcolorbox}[colback=yellow!10,colframe=goldenyellow,title=Pro Tip: Set Your Personal Deadline 1 Week Early]
+By finishing your paper or project one week ahead of the actual deadline, you gain not only buffer time for polishing, but also a powerful social advantage: When others are in panic mode during the final week, you can \textit{offer timely help}. This creates a natural opportunity to:
+
+\begin{itemize}
+    \item Strengthen relationships with your peers
+    \item Learn how others structure their research and writing  
+    \item Discover collaboration potential for future work
+\end{itemize}
+
+Many research partnerships start with a helping hand in a high-stress moment. Your preparation becomes an opportunity to build your academic network while genuinely supporting your community.
+\end{tcolorbox}
+
 \begin{tcolorbox}[colback=green!5,colframe=green!50,title={Code Anonymization for Double-Blind Review}]
 \textbf{Essential Tool:} \href{https://anonymous.4open.science/}{\textcolor{blue}{anonymous.4open.science}} — Creates anonymous versions of your GitHub repository for paper submissions. It removes all author information and commit history while providing a stable URL for reviewers. Simply enter your GitHub URL, and it generates an anonymized copy instantly.
 \end{tcolorbox}
@@ -1386,7 +1398,7 @@ But to truly stand out in your field, to secure competitive faculty positions or
     \item Become part of your "research identity"
 \end{itemize}
 
-\textbf{My advice:} Start with quantity to build skills and confidence, but always be working toward that signature contribution. When you're ready, invest 6-12 months in a project that could define your research trajectory. One exceptional paper at NeurIPS is worth more than five mediocre workshop papers for your career prospects.
+\textbf{My advice:} Start with quantity to build skills and confidence, but always be working toward that signature contribution. When you're ready, invest 6-12 months in a project that could define your research trajectory. 
 \end{tcolorbox}
 
 \subsubsection{Collaboration Guidelines}
@@ -1615,6 +1627,150 @@ Full Experiments -> Analysis -> Writing -> Submission
     \item Administrative tasks and service
     \item Exploring tangentially related topics
 \end{itemize}
+\end{tcolorbox}
+
+\subsubsection{AI Tools for PhD Research}
+
+\begin{tcolorbox}[colback=blue!5,colframe=darkblue,title={The AI-Augmented Researcher}]
+The research landscape has fundamentally shifted. AI tools are no longer optional productivity hacks---they are becoming core infrastructure for competitive research. A modern PhD student who learns to wield these tools effectively can compress months of manual work into days, and spend their cognitive energy on what actually matters: original thinking.
+
+This section covers the two highest-leverage applications I've personally found: AI-assisted literature management and AI coding agents.
+\end{tcolorbox}
+
+\textbf{I. AI-Assisted Literature Review}
+
+Literature review is notoriously the most time-consuming yet cognitively unrewarding part of early research. The good news: it's also where AI provides the most immediate return.
+
+\textbf{Semantic Scholar API --- Your Literature Intelligence Layer}
+
+\href{https://api.semanticscholar.org/}{Semantic Scholar} is an AI-powered academic search engine with a free API. Unlike Google Scholar, it exposes structured metadata programmatically:
+
+\begin{lstlisting}[style=bashstyle]
+# Search papers by keyword
+curl "https://api.semanticscholar.org/graph/v1/paper/search\
+  ?query=causal+inference+LLM\
+  &fields=title,year,authors,citationCount,abstract\
+  &limit=10"
+
+# Get citation network of a specific paper
+curl "https://api.semanticscholar.org/graph/v1/paper/{paper_id}/citations\
+  ?fields=title,year,authors"
+
+# Find papers that cite a landmark paper (build on prior work)
+curl "https://api.semanticscholar.org/graph/v1/paper/{paper_id}/references\
+  ?fields=title,year,authors"
+\end{lstlisting}
+
+\textbf{Practical workflows enabled by the API:}
+\begin{itemize}
+    \item \textbf{Citation snowballing}: Automatically traverse citation graphs to find all relevant work
+    \item \textbf{Trend detection}: Track how many papers per year cite a method to gauge its lifecycle
+    \item \textbf{Baseline hunting}: Find the actual SOTA by sorting by citation count + recency
+    \item \textbf{BibTeX generation}: Pull structured metadata directly instead of copy-pasting from PDFs
+\end{itemize}
+
+\textbf{NotebookLM as a Living Knowledge Base}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={Personal Experience: From 524 URLs to 269 Clean Sources in One Session}]
+When I needed to systematically learn a new tool's entire documentation (500+ pages), I used an AI agent to automatically fetch the sitemap, bulk-import every page as an individual source into NotebookLM, deduplicate the translated versions, and run an audit. The result: a clean, searchable knowledge base with zero duplicates---built while I was doing other work.
+
+The same pattern works for any domain: bulk-import relevant papers, have the system clean and organize them, then query the resulting knowledge base with precise questions instead of re-reading papers from scratch.
+\end{tcolorbox}
+
+\href{https://notebooklm.google.com/}{Google NotebookLM} is an AI knowledge engine built on Gemini. Its core strength is \textbf{source-grounded responses}---every answer cites the exact source passage, so you can verify and trace claims back to the original paper. Unlike general LLMs, it doesn't hallucinate references because it only draws from documents you've explicitly provided.
+
+\textbf{High-value use cases for researchers:}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{3.5cm}p{9cm}@{}}
+\toprule
+\textbf{Use Case} & \textbf{How to Execute} \\
+\midrule
+\textbf{Paper-set Q\&A} & Import 20--50 papers on a topic, ask cross-paper synthesis questions \\
+\textbf{Related work drafting} & Import your candidate citations, prompt: ``Summarize how each paper relates to [your method]'' \\
+\textbf{Methodology comparison} & Import baselines, ask: ``Compare the evaluation protocols across these papers'' \\
+\textbf{Gap identification} & Ask: ``What problems do these papers explicitly leave for future work?'' \\
+\textbf{Podcast generation} & Auto-generate a two-person dialogue summarizing your paper set---useful for on-the-go review \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key limitation to know}: NotebookLM has no public API, so bulk operations (importing 100+ URLs, deduplication, auditing) require browser automation. This is where AI agents become powerful as an orchestration layer---see the next section.
+
+\textbf{II. AI Coding Agents}
+
+Modern AI coding agents are not autocomplete tools. They can understand your codebase, reason about architecture decisions, write and run tests, and iterate on bugs autonomously. The productivity difference between researchers who use them well and those who don't is already significant---and widening.
+
+\textbf{What AI coding agents can do for your research:}
+\begin{itemize}
+    \item \textbf{Boilerplate elimination}: Dataset loading, training loops, evaluation scripts, logging setup---these are solved problems. Describe what you need and get working code in seconds.
+    \item \textbf{Debugging}: Paste an error and the surrounding context; the agent traces the root cause and proposes a fix. Especially useful for cryptic CUDA errors and shape mismatches.
+    \item \textbf{Refactoring}: ``Make this reproducible,'' ``Add argument parsing,'' ``Wrap this in a proper experiment config''---structural improvements without manual tedium.
+    \item \textbf{Rapid baseline implementation}: Implementing a new baseline from a paper? Give the agent the relevant paper section and ask it to implement the method. Use it as a starting point, then verify carefully.
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={Critical: Verify AI-Generated Code}]
+AI coding agents make mistakes---especially on novel architectures, edge cases, and domain-specific conventions. Never submit AI-generated code to a paper without:
+\begin{enumerate}
+    \item Running it and verifying outputs match expected behavior
+    \item Reading it line by line to understand what it's doing
+    \item Testing edge cases (empty batches, single-sample inputs, extreme values)
+    \item Having a labmate review it if it's central to your results
+\end{enumerate}
+The goal is to use AI to eliminate tedium, not to outsource thinking. Your name is on the paper.
+\end{tcolorbox}
+
+\textbf{Recommended tools and when to use them:}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{2.8cm}p{4.5cm}p{5cm}@{}}
+\toprule
+\textbf{Tool} & \textbf{Best For} & \textbf{Notes} \\
+\midrule
+\textbf{Claude Code} & Long-horizon tasks: refactoring entire codebases, writing complete pipelines, multi-file changes & Runs in your terminal; can read/write files directly \\
+\textbf{GitHub Copilot} & Inline completion during active coding & Integrated into VS Code/JetBrains \\
+\textbf{Cursor} & Mixed mode: inline suggestions + chat for local files & Strong for navigating unfamiliar codebases \\
+\textbf{Gemini in Colab} & Notebook-level tasks; good for data exploration & Free tier available; native Google Drive integration \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{III. AI-Augmented Research Workflow}
+
+The real leverage comes from combining these tools into a unified pipeline:
+
+\begin{verbatim}
+Topic Identified
+      |
+      v
+Semantic Scholar API  ──>  Candidate paper list (structured metadata)
+      |
+      v
+NotebookLM Notebook   ──>  Bulk import, deduplicate, audit
+      |
+      v
+AI Q&A Sessions       ──>  Synthesize related work, identify gaps
+      |
+      v
+AI Coding Agent       ──>  Implement baseline, set up experiments
+      |
+      v
+You                   ──>  Original insight, critical judgment, writing
+\end{verbatim}
+
+This pipeline doesn't replace your thinking---it removes the friction before and after your thinking, so more of your time goes to the parts only you can do.
+
+\begin{tcolorbox}[colback=purple!5,colframe=royalpurple,title={Personal Reflection: Redefining What ``Doing Research'' Means}]
+When I started my PhD, I spent the first months reading papers one-by-one, manually extracting key ideas, and feeling perpetually behind. The mental model was: reading more = knowing more = better research.
+
+What I've gradually learned is that the bottleneck in most research isn't information access---it's the quality of your questions and the rigor of your experiments. Once I started using AI tools to handle the information plumbing (literature organization, code scaffolding, experiment tracking), I found I was spending more time on the parts of research I actually find rewarding: thinking about why something doesn't work, finding the cleaner formulation, or noticing that two apparently separate problems are actually the same.
+
+These tools won't make your research ideas better. But they can free up enough mental space that you have the bandwidth to make them better yourself.
 \end{tcolorbox}
 
 \subsubsection{Mental Health and Sustainability}
@@ -2302,7 +2458,7 @@ Image processing & 180s & 48s & 3.8x \\
 \begin{itemize}
     \item \textbf{Python}: Use \texttt{multiprocessing}, \texttt{concurrent.futures}, or \texttt{joblib}
     \item \textbf{NumPy/Pandas}: Vectorized operations instead of loops
-    \item \textbf{Deep Learning}: Batch processing, DataLoader with \texttt{num\_workers > 0}
+    \item \textbf{Deep Learning}: Batch processing, DataLoader with \texttt{num\_workers $>$ 0}
     \item \textbf{Data Processing}: Transform \texttt{map()} → \texttt{parallel\_map()}
 \end{itemize}
 
@@ -2310,9 +2466,9 @@ Image processing & 180s & 48s & 3.8x \\
 
 \textbf{What to Monitor During Development:}
 \begin{itemize}
-    \item \textbf{CPU Usage}: Aim for >80\% utilization across all cores when parallel processing
+    \item \textbf{CPU Usage}: Aim for $>$80\% utilization across all cores when parallel processing
     \item \textbf{Memory Usage}: Watch for memory leaks; avoid swapping to disk
-    \item \textbf{GPU Utilization}: Should be >90\% during deep learning training
+    \item \textbf{GPU Utilization}: Should be $>$90\% during deep learning training
     \item \textbf{I/O Wait}: High I/O wait indicates data loading bottlenecks
 \end{itemize}
 
@@ -2325,21 +2481,29 @@ Image processing & 180s & 48s & 3.8x \\
 \end{itemize}
 
 \textbf{Quick Reference Commands:}
-\begin{verbatim}
+
+\begin{lstlisting}[style=bashstyle, caption=System Monitoring Commands]
 # Monitor CPU usage
 htop                    # Interactive CPU monitor
-top -u                 # Alternative CPU monitor
+top -u                  # Alternative CPU monitor
 
 # Monitor GPU (NVIDIA)
 nvidia-smi -l 1        # Updates every 1 second
 nvtop                  # Interactive GPU monitor
 gpustat -i 1           # Simple GPU status
+\end{lstlisting}
 
+\begin{lstlisting}[style=pythonstyle, caption=Python Parallel Processing Example]
 # Python parallel example
 from multiprocessing import Pool
+
+def process_func(item):
+    # Your processing logic here
+    return item * 2
+
 with Pool() as p:
     results = p.map(process_func, data_list)
-\end{verbatim}
+\end{lstlisting}
 
 \textbf{Pro Tips:}
 \begin{itemize}
