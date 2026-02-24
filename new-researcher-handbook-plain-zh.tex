@@ -1,0 +1,2530 @@
+% ============================================================
+% 新研究者手册 - 中文版
+% 编译方式：使用 XeLaTeX 编译
+% ============================================================
+\documentclass[11pt,a4paper]{article}
+
+% ----- 中文支持 (使用 ctex 宏包，需用 XeLaTeX 编译) -----
+\usepackage[margin=1in]{geometry}
+\usepackage{ctex}  % 中文支持，自动配置中文字体
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{float}
+
+% 如果 ctex 默认字体不满足需求，可取消下面注释手动设置字体
+% \setCJKmainfont{SimSun}[BoldFont=SimHei, ItalicFont=KaiTi]
+% \setCJKsansfont{SimHei}
+% \setCJKmonofont{FangSong}
+
+% Configure listings for code syntax highlighting
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{red},
+    commentstyle=\color{green!50!black}\itshape,
+    backgroundcolor=\color{gray!5},
+    frame=single,
+    rulecolor=\color{gray!30},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    captionpos=b
+}
+
+\lstdefinestyle{bashstyle}{
+    language=bash,
+    basicstyle=\ttfamily\small\color{black},
+    keywordstyle=\color{purple}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    backgroundcolor=\color{blue!5},
+    frame=leftline,
+    framerule=3pt,
+    rulecolor=\color{blue!50},
+    numbers=none,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=2
+}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    columns=flexible,
+    breaklines=true
+}
+
+% Define colors
+\definecolor{darkblue}{RGB}{0,0,139}
+\definecolor{lightgray}{RGB}{240,240,240}
+\definecolor{harvardcrimson}{RGB}{165,28,48}
+\definecolor{emeraldgreen}{RGB}{0,155,119}
+\definecolor{royalpurple}{RGB}{102,51,153}
+\definecolor{goldenyellow}{RGB}{255,193,37}
+
+% Header and footer
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhf{}
+\rhead{学生科研卓越指南}
+\lhead{科研手册}
+\rfoot{第 \thepage 页}
+
+% Title formatting
+\titleformat{\section}{\Large\bfseries\color{darkblue}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+
+% Hyperlink setup
+\hypersetup{
+    colorlinks=true,
+    linkcolor=darkblue,
+    urlcolor=blue,
+    citecolor=darkblue
+}
+
+\title{\textbf{新研究者手册}\\
+\large 面向博士新生和早期研究人员的实用指南}
+\author{\href{https://aaronluo00.github.io/Aaron_Homepage/}{罗晓龙（Xiaolong Luo）}\\
+哈佛大学\\
+工程与应用科学学院\\
+\vspace{0.5cm}
+\small\textit{同步发布于：\href{http://xhslink.com/m/5E5I3850qZP}{小红书}}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{引言}
+
+\subsection{为什么这本手册很重要}
+
+亲爱的同学们，
+
+\textbf{我真希望在本科阶段，或者刚开始读博的时候就看到这本手册。} 它本可以让我免走无数弯路，避免许多错误和不必要的挣扎。这份指南凝聚了我用最笨的方式学到的教训——通过反复试错、深夜调试、论文被拒和尴尬的学术报告。
+
+回顾过往，我意识到如果当初有人告诉我以下这些事，我可以节省多少时间和精力：
+\begin{itemize}
+    \item 版本控制的重要性（因为没有正确使用 Git，我曾丢失了好几周的工作成果）
+    \item 如何组织演示文稿（我的第一次学术会议报告简直是灾难——没有清晰的主题，细节过多）
+    \item 文档记录的价值（六个月后我看不懂自己写的代码了）
+    \item 如何在会议上提出好的问题（我沉默了好几个月，错过了宝贵的学习机会）
+\end{itemize}
+
+\textbf{这些不仅仅是规则——它们是我发现得太晚的成功捷径：}
+\begin{itemize}
+    \item 清晰的沟通能力将帮助你有效地分享你的想法
+    \item 严谨的科研习惯将使你成为值得信赖的研究者
+    \item 专业的展示技能将为你打开机遇之门
+    \item 良好的文档习惯将在未来为你节省无数时间
+    \item 协作能力将使你在任何地方都成为受欢迎的团队成员
+\end{itemize}
+
+作为一名博四的博士候选人，我自己仍在学习这些。这本手册中的每一条准则都来自我亲身犯过或亲眼见过的错误。当我强调演示技能的重要性时，那是因为我曾因为糟糕的演示错失了许多机会，留下了不好的印象。当我强调文档记录时，那是因为我曾亲身经历过几个月后无法重现自己实验的困境。
+
+我们现在培养的习惯，在以下场景中将大有裨益：
+\begin{itemize}
+    \item 在国际会议上做报告（我们只有一次机会给人留下深刻印象）
+    \item 进行学位论文答辩（清晰的表达能决定答辩的成败）
+    \item 面试理想的工作（这些技能让我们脱颖而出）
+    \item 未来领导自己的研究团队（届时我们会将这些经验传递下去）
+    \item 向投资者或利益相关方推介想法（专业素养在此时最为重要）
+\end{itemize}
+
+\textbf{我的初衷很简单：} 通过分享我在博士旅程中学到的东西，我希望我们能互相学习。这本手册并非以大师的姿态写就——它是我仍在学习的教训、仍在犯的错误、仍在培养的习惯的合集。让我们一起走过这段旅程，互相帮助，成为我们所向往的研究者。
+
+\subsection{如何构建科研卓越能力}
+
+除了专业技能之外，请记住科研卓越来自于：
+\begin{itemize}
+    \item \textbf{彼此之间频繁的反馈}：不要闭门造车——尽早、经常地分享你的工作
+    \item \textbf{反思我们的个人和研究实践}：花时间想想什么有效，什么无效
+    \item \colorbox{yellow!30}{\textbf{保证充足的睡眠，才能以最佳状态投入工作}：} \newline \colorbox{yellow!30}{疲惫的研究者会做出糟糕的决策，写出满是 bug 的代码}
+\end{itemize}
+
+这些原则听起来可能很简单，但我见过太多才华横溢的学生因为忽视了它们而精疲力竭。当你休息充分、与社区保持联系、不断从成功和失败中学习时，你才能做出最好的工作。
+
+\section{核心原则}
+
+\subsection{清晰至上}
+每次展示都应以清晰为首要目标。你的听众应该能理解：
+\begin{itemize}
+    \item 你要解决的问题
+    \item 你的方法
+    \item 你的结果及其意义
+\end{itemize}
+
+\subsection{一致性很重要}
+在你的演示文稿和报告中，使用一致的格式、术语和结构。
+
+\subsection{尊重你的听众}
+记住你的听众的时间是宝贵的。做好准备，简明扼要，引人入胜。
+
+\section{演示标准}
+
+\subsection{结构}
+每次演示都应遵循以下结构：
+\begin{enumerate}
+    \item \textbf{标题页}：包含标题、姓名、日期和所属机构
+    \item \textbf{大纲}：简要概述你将涵盖的内容
+    \item \textbf{背景/动机}：为什么这项工作很重要
+    \item \textbf{问题陈述}：清晰定义你要解决的问题
+    \item \textbf{方法论}：你的研究方法
+    \item \textbf{结果}：你发现了什么
+    \item \textbf{讨论}：这意味着什么
+    \item \textbf{未来工作}：下一步计划
+    \item \textbf{致谢}：感谢合作者和资助方
+\end{enumerate}
+
+\subsection{幻灯片设计准则}
+\begin{itemize}
+    \item \textbf{6×6 法则}：每张幻灯片最多 6 个要点，每个要点最多 6 个词
+    \item \textbf{字号}：正文至少 24pt，标题至少 32pt
+    \item \textbf{配色方案}：使用高对比度；避免红绿搭配
+    \item \textbf{每张幻灯片一个主题}：每张幻灯片只传达一个核心观点
+\end{itemize}
+
+\section{实验结果展示}
+
+\begin{tcolorbox}[colback=yellow!10,colframe=red!50,title={关键要求}]
+\textbf{展示任何实验结果之前：}
+\begin{enumerate}
+    \item 清楚地解释实验设置
+    \item 定义所有变量和参数
+    \item 明确陈述你的假设
+\end{enumerate}
+
+\textbf{展示任何图表之前：}
+\begin{enumerate}
+    \item 解释图表展示了什么
+    \item 清晰描述 X 轴和 Y 轴
+    \item 大声读出图表说明
+    \item 指出关键趋势或发现
+\end{enumerate}
+\end{tcolorbox}
+
+\subsection{实验设置清单}
+展示实验时，始终包含以下内容：
+\begin{itemize}
+    \item \textbf{数据集}：规模、来源、预处理步骤
+    \item \textbf{基线方法}：你与什么进行比较
+    \item \textbf{评估指标}：如何衡量成功
+    \item \textbf{超参数}：所有相关设置
+    \item \textbf{统计显著性}：误差线、适用时的 p 值
+\end{itemize}
+
+\subsection{图表准则}
+
+\subsubsection{必备要素}
+每张图表必须包含：
+\begin{itemize}
+    \item 清晰、描述性的标题和带单位的坐标轴标签
+    \item 图例（如果有多个数据系列）
+    \item 解释图表内容的说明文字
+    \item 适当的比例和范围
+    \item 尽可能使用矢量图形（PDF、SVG）
+    \item 包含误差线或置信区间
+\end{itemize}
+
+
+\subsubsection{科学配色方案}
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!50,title={专业配色方案}]
+\textbf{推荐的科学配色方案：}
+
+\textbf{1. 顺序色（单色系）：} 用于有序数据
+
+\begin{itemize}
+    \item \textbf{Blues（蓝色系）：}
+    \colorbox[HTML]{f7fbff}{\phantom{XX}}
+    \colorbox[HTML]{deebf7}{\phantom{XX}}
+    \colorbox[HTML]{c6dbef}{\phantom{XX}}
+    \colorbox[HTML]{9ecae1}{\phantom{XX}}
+    \colorbox[HTML]{6baed6}{\phantom{XX}}
+    \colorbox[HTML]{4292c6}{\phantom{XX}}
+    \colorbox[HTML]{2171b5}{\phantom{XX}}
+    \colorbox[HTML]{08519c}{\phantom{XX}}
+    \colorbox[HTML]{08306b}{\phantom{XX}}
+
+    \item \textbf{Viridis：}
+    \colorbox[HTML]{440154}{\phantom{XX}}
+    \colorbox[HTML]{482777}{\phantom{XX}}
+    \colorbox[HTML]{3f4a8a}{\phantom{XX}}
+    \colorbox[HTML]{31678e}{\phantom{XX}}
+    \colorbox[HTML]{26838f}{\phantom{XX}}
+    \colorbox[HTML]{1f9d8a}{\phantom{XX}}
+    \colorbox[HTML]{6cce5a}{\phantom{XX}}
+    \colorbox[HTML]{b6de2b}{\phantom{XX}}
+    \colorbox[HTML]{fde725}{\phantom{XX}}
+
+    \item \textbf{Cividis：}
+    \colorbox[HTML]{00204d}{\phantom{XX}}
+    \colorbox[HTML]{00336f}{\phantom{XX}}
+    \colorbox[HTML]{39486a}{\phantom{XX}}
+    \colorbox[HTML]{575c6d}{\phantom{XX}}
+    \colorbox[HTML]{707173}{\phantom{XX}}
+    \colorbox[HTML]{8a8779}{\phantom{XX}}
+    \colorbox[HTML]{a69d75}{\phantom{XX}}
+    \colorbox[HTML]{c4b56c}{\phantom{XX}}
+    \colorbox[HTML]{e4cf5b}{\phantom{XX}}
+    \colorbox[HTML]{ffe945}{\phantom{XX}}
+\end{itemize}
+
+\textbf{2. 发散色：} 用于有意义中点的数据
+
+\begin{itemize}
+    \item \textbf{RdBu（红-蓝）：}
+    \colorbox[HTML]{b2182b}{\phantom{XX}}
+    \colorbox[HTML]{d6604d}{\phantom{XX}}
+    \colorbox[HTML]{f4a582}{\phantom{XX}}
+    \colorbox[HTML]{fddbc7}{\phantom{XX}}
+    \colorbox[HTML]{f7f7f7}{\phantom{XX}}
+    \colorbox[HTML]{d1e5f0}{\phantom{XX}}
+    \colorbox[HTML]{92c5de}{\phantom{XX}}
+    \colorbox[HTML]{4393c3}{\phantom{XX}}
+    \colorbox[HTML]{2166ac}{\phantom{XX}}
+
+    \item \textbf{PuOr（紫-橙）：}
+    \colorbox[HTML]{762a83}{\phantom{XX}}
+    \colorbox[HTML]{9970ab}{\phantom{XX}}
+    \colorbox[HTML]{c2a5cf}{\phantom{XX}}
+    \colorbox[HTML]{e7d4e8}{\phantom{XX}}
+    \colorbox[HTML]{f7f7f7}{\phantom{XX}}
+    \colorbox[HTML]{fdb863}{\phantom{XX}}
+    \colorbox[HTML]{e08214}{\phantom{XX}}
+    \colorbox[HTML]{b35806}{\phantom{XX}}
+    \colorbox[HTML]{7f3b08}{\phantom{XX}}
+
+    \item \textbf{BrBG（棕-绿）：}
+    \colorbox[HTML]{543005}{\phantom{XX}}
+    \colorbox[HTML]{8c510a}{\phantom{XX}}
+    \colorbox[HTML]{bf812d}{\phantom{XX}}
+    \colorbox[HTML]{dfc27d}{\phantom{XX}}
+    \colorbox[HTML]{f6e8c3}{\phantom{XX}}
+    \colorbox[HTML]{c7eae5}{\phantom{XX}}
+    \colorbox[HTML]{80cdc1}{\phantom{XX}}
+    \colorbox[HTML]{35978f}{\phantom{XX}}
+    \colorbox[HTML]{01665e}{\phantom{XX}}
+    \colorbox[HTML]{003c30}{\phantom{XX}}
+\end{itemize}
+
+\textbf{3. 分类色：} 用于离散类别
+
+\begin{itemize}
+    \item \textbf{Set1：}
+    \colorbox[HTML]{e41a1c}{\phantom{XX}}
+    \colorbox[HTML]{377eb8}{\phantom{XX}}
+    \colorbox[HTML]{4daf4a}{\phantom{XX}}
+    \colorbox[HTML]{984ea3}{\phantom{XX}}
+    \colorbox[HTML]{ff7f00}{\phantom{XX}}
+    \colorbox[HTML]{ffff33}{\phantom{XX}}
+    \colorbox[HTML]{a65628}{\phantom{XX}}
+    \colorbox[HTML]{f781bf}{\phantom{XX}}
+    \colorbox[HTML]{999999}{\phantom{XX}}
+
+    \item \textbf{Okabe-Ito（色盲友好）：}
+    \colorbox[HTML]{E69F00}{\phantom{XX}}
+    \colorbox[HTML]{56B4E9}{\phantom{XX}}
+    \colorbox[HTML]{009E73}{\phantom{XX}}
+    \colorbox[HTML]{F0E442}{\phantom{XX}}
+    \colorbox[HTML]{0072B2}{\phantom{XX}}
+    \colorbox[HTML]{D55E00}{\phantom{XX}}
+    \colorbox[HTML]{CC79A7}{\phantom{XX}}
+    \colorbox[HTML]{000000}{\phantom{XX}}
+
+    \item \textbf{Dark2：}
+    \colorbox[HTML]{1b9e77}{\phantom{XX}}
+    \colorbox[HTML]{d95f02}{\phantom{XX}}
+    \colorbox[HTML]{7570b3}{\phantom{XX}}
+    \colorbox[HTML]{e7298a}{\phantom{XX}}
+    \colorbox[HTML]{66a61e}{\phantom{XX}}
+    \colorbox[HTML]{e6ab02}{\phantom{XX}}
+    \colorbox[HTML]{a6761d}{\phantom{XX}}
+    \colorbox[HTML]{666666}{\phantom{XX}}
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{配色选择资源：}
+\begin{itemize}
+    \item \href{https://www.simplifiedsciencepublishing.com/resources/best-color-palettes-for-scientific-figures-and-data-visualizations}{科学图表和数据可视化最佳配色方案} - 科学配色选择综合指南
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={注意：多子图一致性}]
+当创建包含多个子图比较不同模型的图表时，始终在所有子图中对每个模型使用相同的颜色和顺序。例如，如果 XGBoost 在子图 1 中是蓝色的，那么它在所有其他子图中也必须是蓝色的。这可以避免混淆，使比较更加清晰。
+\end{tcolorbox}
+
+\section{计算机科学与人工智能的科研习惯}
+
+\subsection{日常实践}
+
+\subsubsection{代码与实验管理}
+\begin{itemize}
+    \item \textbf{版本控制}：每天提交代码，并附上有意义的提交信息
+    \item \textbf{文档记录}：在写代码时就记录文档，而不是事后再补
+    \item \textbf{可复现性}：始终设置随机种子并记录所有参数
+    \item \textbf{备份}：使用 git 和云存储；永远不要只信任单一副本
+\end{itemize}
+
+\subsubsection{实验可复现性：可信研究的基石}
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!40,title={为什么可复现性很重要}]
+\textbf{可复现性危机：} 研究表明，70\% 的研究人员未能成功复现其他科学家的实验，超过 50\% 的人甚至无法复现自己的实验。
+
+\textbf{你的研究价值取决于其可复现性。} 没有可复现性，你的发现就无法被他人——甚至六个月后的你自己——验证、扩展或在其基础上继续研究！
+\end{tcolorbox}
+
+\textbf{可复现研究的三大支柱：}
+
+\begin{enumerate}
+    \item \textbf{环境管理} —— 精确的软件版本和依赖项
+    \item \textbf{数据和代码版本控制} —— 系统性地追踪所有变更
+    \item \textbf{文档记录} —— 清晰的复现指南
+\end{enumerate}
+
+\subsubsection{使用 Conda 进行环境管理}
+
+Conda 是管理 Python 环境和依赖项的瑞士军刀。它确保你的代码在不同机器和不同时间段上运行结果一致。
+
+\textbf{Conda 入门：}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={Conda 常用命令}]
+\begin{lstlisting}[style=bashstyle]
+# Create a new environment
+conda create -n myproject python=3.9
+
+# Activate the environment
+conda activate myproject
+
+# Install packages
+conda install numpy pandas scikit-learn
+pip install special-package  # For pip-only packages
+
+# Export environment
+conda env export > environment.yml
+
+# Recreate environment from file
+conda env create -f environment.yml
+
+# List all environments
+conda env list
+
+# Remove an environment
+conda env remove -n myproject
+\end{lstlisting}
+\end{tcolorbox}
+
+\textbf{Conda 最佳实践：}
+\begin{itemize}
+    \item \textbf{一个项目一个环境}：永远不要将 base 环境用于项目
+    \item \textbf{版本固定}：在生产环境中始终指定精确版本号
+    \item \textbf{定期导出}：每次依赖变更后更新 environment.yml
+    \item \textbf{文档记录}：在 README 中包含安装说明
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={进阶技巧：Conda vs pip}]
+\textbf{什么时候用 Conda：}
+\begin{itemize}
+    \item 科学计算包（numpy、scipy、pandas）
+    \item 复杂依赖（CUDA、MKL）
+    \item 需要跨平台兼容性
+\end{itemize}
+
+\textbf{什么时候用 pip：}
+\begin{itemize}
+    \item 最新的深度学习框架
+    \item 小众或前沿的包
+    \item 在 conda 渠道中不可用的包
+\end{itemize}
+
+\textbf{黄金法则：} 优先使用 conda 安装，pip 作为备选。始终在 conda 环境\textit{内部}使用 pip，绝对不要在全局环境中使用！
+\end{tcolorbox}
+
+\subsubsection{使用 Docker 进行容器化}
+
+Docker 将可复现性提升到更高层次，它将你的整个计算环境——操作系统、系统库和所有依赖项——打包到一个可移植的容器中。
+
+\textbf{Docker 基础：}
+
+\begin{tcolorbox}[colback=purple!5,colframe=purple!40,title={Docker 架构}]
+\begin{center}
+\begin{tabular}{ll}
+\textbf{组件} & \textbf{用途} \\
+\midrule
+Image（镜像） & 创建容器的蓝图（类似快照） \\
+Container（容器） & 镜像的运行实例 \\
+Dockerfile & 构建镜像的配方 \\
+Registry（仓库） & 共享镜像的存储（如 Docker Hub） \\
+\end{tabular}
+\end{center}
+\end{tcolorbox}
+
+\textbf{机器学习研究的 Dockerfile 示例：}
+
+\begin{lstlisting}[style=pythonstyle, caption=Dockerfile]
+# Start from official Python image
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements file
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy project code
+COPY . .
+
+# Set default command
+CMD ["python", "main.py"]
+\end{lstlisting}
+
+\textbf{Docker 常用命令：}
+
+\begin{lstlisting}[style=bashstyle]
+# Build an image
+docker build -t myproject:v1 .
+
+# Run a container
+docker run -it myproject:v1
+
+# Mount local directory
+docker run -v $(pwd):/app myproject:v1
+
+# List containers
+docker ps -a
+
+# Push to registry
+docker push username/myproject:v1
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=red!5,colframe=red!40,title={什么时候用什么？}]
+\textbf{使用 Conda 的场景：}
+\begin{itemize}
+    \item 在本地或共享服务器上工作
+    \item 需要快速迭代和调试
+    \item 管理 Python/R 环境
+    \item 团队使用类似的操作系统（如都用 Linux）
+\end{itemize}
+
+\textbf{使用 Docker 的场景：}
+\begin{itemize}
+    \item 部署到生产环境
+    \item 与外部合作者共享
+    \item 需要精确的操作系统级别可复现性
+    \item 在不同平台上运行（Mac/Linux/Windows）
+\end{itemize}
+
+\textbf{两者都用的场景：}
+\begin{itemize}
+    \item 最高级别的可复现性至关重要
+    \item 发布计算性研究
+    \item 构建机器学习流水线
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{可复现性检查清单：}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={发表研究之前}]
+\begin{itemize}
+    \item[$\square$] \textbf{环境文件}（environment.yml 或 requirements.txt）已包含
+    \item[$\square$] \textbf{随机种子} 已为所有随机过程设置
+    \item[$\square$] \textbf{数据可用性} 声明，附下载链接或说明
+    \item[$\square$] \textbf{README} 包含分步复现指南
+    \item[$\square$] \textbf{版本信息} 记录所有主要依赖版本
+    \item[$\square$] \textbf{硬件规格} 已记录（GPU、RAM 等）
+    \item[$\square$] \textbf{预期输出} 或结果已包含，供验证使用
+    \item[$\square$] \textbf{Dockerfile} 为复杂环境提供
+    \item[$\square$] \textbf{Jupyter notebooks} 已清除输出并从头到尾重新运行
+    \item[$\square$] \textbf{测试} 已验证关键功能正常工作
+\end{itemize}
+\end{tcolorbox}
+
+\subsubsection{使用远程服务器和 HPC 集群}
+
+作为研究者，你将花大量时间在远程服务器和高性能计算（HPC）集群上工作。掌握这些环境对于运行大规模实验和访问本地机器之外的计算资源至关重要。
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!40,title={为什么远程服务器很重要}]
+\textbf{你的笔记本电脑远远不够。} 现代研究需要：
+\begin{itemize}
+    \item \textbf{GPU}：训练深度学习模型
+    \item \textbf{内存}：处理大型数据集（100GB+）
+    \item \textbf{并行计算}：同时运行多个实验
+    \item \textbf{协作}：与研究组共享环境
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{SSH：通往远程计算的大门}
+
+SSH（安全外壳协议）是你访问远程服务器的主要工具：
+
+\begin{lstlisting}[style=bashstyle]
+# Basic SSH connection
+ssh username@server.example.edu
+
+# SSH with specific port
+ssh -p 2222 username@server.example.edu
+
+# SSH with key authentication (recommended)
+ssh -i ~/.ssh/id_rsa username@server.example.edu
+
+# SSH config file (~/.ssh/config) for shortcuts
+Host myserver
+    HostName server.example.edu
+    User username
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+
+# Then simply connect with:
+ssh myserver
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={进阶技巧：SSH 密钥配置}]
+\begin{lstlisting}[style=bashstyle]
+# Generate SSH key pair
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Copy public key to server
+ssh-copy-id username@server.example.edu
+
+# Now you can login without password!
+\end{lstlisting}
+\end{tcolorbox}
+
+\textbf{服务器常用命令}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{命令} & \textbf{用途} \\
+\midrule
+\texttt{htop} & 交互式进程查看器（CPU/内存使用率） \\
+\texttt{nvidia-smi} & GPU 状态和使用率 \\
+\texttt{df -h} & 磁盘空间使用情况 \\
+\texttt{du -sh *} & 目录大小 \\
+\texttt{ps aux | grep username} & 你正在运行的进程 \\
+\texttt{kill -9 PID} & 强制终止进程 \\
+\texttt{nohup command \&} & 运行退出登录后仍存活的命令 \\
+\texttt{screen / tmux} & 持久化终端会话 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Tmux：服务器上的最佳伙伴}
+
+Tmux 允许你维护断开连接后仍能存活的持久会话：
+
+\begin{lstlisting}[style=bashstyle]
+# Start new tmux session
+tmux new -s experiment
+
+# Detach from session (Ctrl+b, then d)
+# Your processes keep running!
+
+# List sessions
+tmux ls
+
+# Reattach to session
+tmux attach -t experiment
+
+# Kill session
+tmux kill-session -t experiment
+
+# Essential tmux shortcuts (after Ctrl+b):
+# c - create new window
+# n/p - next/previous window
+# % - split pane vertically
+# " - split pane horizontally
+# arrow keys - navigate panes
+\end{lstlisting}
+
+\textbf{数据传输方法}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={向/从服务器传输文件}]
+\begin{lstlisting}[style=bashstyle]
+# SCP: Simple file copy
+scp local_file.txt username@server:~/remote_path/
+scp username@server:~/remote_file.txt ./local_path/
+
+# Rsync: Efficient sync (resume support, compression)
+rsync -avz --progress local_dir/ username@server:~/remote_dir/
+rsync -avz --exclude='*.pyc' source/ dest/
+
+# SFTP: Interactive file transfer
+sftp username@server
+> put local_file.txt
+> get remote_file.txt
+> exit
+
+# For large datasets, use compression
+tar -czf data.tar.gz data_folder/
+scp data.tar.gz username@server:~/
+# On server:
+tar -xzf data.tar.gz
+\end{lstlisting}
+\end{tcolorbox}
+
+\textbf{SLURM：作业调度系统}
+
+大多数 HPC 集群使用 SLURM 进行资源管理：
+
+\begin{lstlisting}[style=bashstyle]
+# Submit a job
+sbatch job_script.sh
+
+# Check job status
+squeue -u username
+
+# Cancel a job
+scancel job_id
+
+# Interactive session with GPU
+srun --gres=gpu:1 --mem=32G --time=4:00:00 --pty bash
+
+# Check available resources
+sinfo
+\end{lstlisting}
+
+\textbf{SLURM 作业脚本示例：}
+
+\begin{lstlisting}[style=bashstyle, caption=job\_script.sh]
+#!/bin/bash
+#SBATCH --job-name=my_experiment
+#SBATCH --output=logs/%j.out
+#SBATCH --error=logs/%j.err
+#SBATCH --time=24:00:00
+#SBATCH --mem=64G
+#SBATCH --gres=gpu:v100:1
+#SBATCH --cpus-per-task=8
+
+# Load modules
+module load python/3.9
+module load cuda/11.7
+
+# Activate conda environment
+conda activate myenv
+
+# Run experiment
+python train.py --config config.yaml
+\end{lstlisting}
+
+\textbf{GPU 管理}
+
+\begin{lstlisting}[style=bashstyle]
+# Check GPU availability
+nvidia-smi
+
+# Monitor GPU usage in real-time
+watch -n 1 nvidia-smi
+
+# Specify GPU for your program
+CUDA_VISIBLE_DEVICES=0,1 python train.py
+
+# Check CUDA version
+nvcc --version
+
+# Python: Check GPU in code
+import torch
+print(torch.cuda.is_available())
+print(torch.cuda.device_count())
+\end{lstlisting}
+
+\begin{tcolorbox}[colback=red!5,colframe=red!40,title={服务器使用礼仪}]
+\textbf{应该做的：}
+\begin{itemize}
+    \item 在运行作业前检查资源可用性
+    \item 对长时间运行的任务使用作业调度器
+    \item 定期清理临时文件
+    \item 记录你的环境配置
+    \item 与团队沟通资源使用情况
+\end{itemize}
+
+\textbf{不应该做的：}
+\begin{itemize}
+    \item 在登录节点上运行计算密集型作业
+    \item 不经协调就独占所有 GPU
+    \item 在 home 目录存放大型数据集（使用 scratch/data 文件夹）
+    \item 让僵尸进程持续运行
+    \item 在共享代码中硬编码绝对路径
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{服务器工作流最佳实践：}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={推荐工作流}]
+\begin{enumerate}
+    \item \textbf{开发阶段}：在本地或 Jupyter 中编写和测试代码
+    \item \textbf{小规模测试}：在服务器上用小数据集测试
+    \item \textbf{资源评估}：评估内存和时间需求
+    \item \textbf{完整实验}：提交带有适当资源配置的批处理作业
+    \item \textbf{监控}：使用 tmux 监控长时间运行的作业
+    \item \textbf{结果传输}：将结果同步回本地机器
+    \item \textbf{清理}：删除临时文件和失败的实验
+\end{enumerate}
+\end{tcolorbox}
+
+\textbf{快速服务器检查清单：}
+
+\begin{itemize}
+    \item[$\square$] SSH 密钥已配置，实现免密登录
+    \item[$\square$] Tmux/Screen 会话用于持久化工作
+    \item[$\square$] Conda 环境已创建并激活
+    \item[$\square$] 数据已传输到适当目录
+    \item[$\square$] 作业脚本已用小数据集测试
+    \item[$\square$] 资源需求已评估
+    \item[$\square$] 日志输出目录已创建
+    \item[$\square$] 重要结果的备份已配置
+\end{itemize}
+
+\subsubsection{时间管理}
+\begin{itemize}
+    \item \textbf{深度工作时间段}：预留 2-4 小时的连续时间段用于专注研究
+    \item \textbf{实验安排}：尽可能在夜间/周末运行实验
+    \item \textbf{写作}：每天都写一点，哪怕只是笔记
+\end{itemize}
+
+\subsection{研究方法论}
+
+\subsubsection{文献综述}
+\begin{itemize}
+    \item \textbf{系统性搜索}：使用 Google Scholar、arXiv 和会议论文集
+    \item \textbf{最新论文中心}：\href{https://huggingface.co/papers}{Hugging Face Papers} - 发现最新高质量机器学习论文和社区讨论的优秀资源
+    \item \textbf{质量评估}：选择论文时，始终注意：
+    \begin{itemize}
+        \item \textbf{机构}：哪所大学或研究实验室产出了该工作
+        \item \textbf{发表年份}：研究有多新（优先考虑近期工作以了解当前趋势）
+        \item \textbf{发表场所}：在哪里发表（顶级会议/期刊有严格的同行评审）
+        \item \textbf{影响力}：引用次数和在领域中的影响
+    \end{itemize}
+    \item \textbf{优先选择高质量来源}：
+    \begin{itemize}
+        \item 顶级会议：NeurIPS、ICML、ICLR、ACL、CVPR、AAAI、IJCAI
+        \item 顶级期刊：Nature、Science、JMLR、IEEE TPAMI、TACL
+        \item 在你的研究领域有良好记录的知名机构
+    \end{itemize}
+    \item \textbf{笔记}：总结关键想法、方法和局限性
+    \item \textbf{保持更新}：关注顶级会议（NeurIPS、ICML、ACL、CVPR 等）
+\end{itemize}
+
+\subsubsection{研究想法的产生}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title=想法来自于联系]
+好的研究想法来自于系统性的探索、批判性的阅读，以及最重要的——与学长和同行的讨论。
+\end{tcolorbox}
+
+\textbf{一、研究想法的主要来源}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{3.5cm}p{9cm}@{}}
+\toprule
+\textbf{来源} & \textbf{策略} \\
+\midrule
+\textbf{学长学姐} & • 知道什么真正有效 vs. 什么只是听起来不错\\
+& • 分享未发表的工作和当前趋势\\
+& • 透露导师的期望和偏好\\
+\midrule
+\textbf{文献空白} & • 从顶级论文的"未来工作"部分挖掘\\
+& • 质疑每一个"我们假设"的声明\\
+& • 分析当前方法失败的地方\\
+\midrule
+\textbf{交叉启发} & • 将技术 X 应用到领域 Y\\
+& • 参加你直接研究领域之外的报告\\
+& • 阅读相邻领域的论文\\
+\midrule
+\textbf{组会} & • "你希望当初做了什么别的课题？"\\
+& • "你希望有什么工具/数据集？"\\
+& • "大家都在做但其实不应该做什么？"\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{二、评估想法：FIVE+C 框架}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{3cm}p{9.5cm}@{}}
+\toprule
+\textbf{标准} & \textbf{关键问题} \\
+\midrule
+\textbf{可行性（Feasible）} & 你能用现有资源实际完成它吗？ \\
+\textbf{有趣性（Interesting）} & 学术界会关心这个吗？ \\
+\textbf{新颖性（Novel）} & 与现有工作有足够的差异吗？ \\
+\textbf{价值性（Valuable）} & 它是否有意义地推动了领域发展？ \\
+\textbf{专长契合（Expertise）} & 它是否发挥了你的优势？ \\
+\textbf{+协作性（Collaborative）} & 他人能贡献吗？能建立合作关系吗？ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{红旗警告：} 过于增量 • 过于宏大（需要10个博士生） • 已经被解决 • 没有评估指标 • 需要不可用的资源
+
+\textbf{三、想法开发流水线}
+
+\begin{itemize}
+    \item \textbf{收集}（持续）：每日想法日记 + 每周同行讨论 + 每月导师头脑风暴
+    \item \textbf{筛选}（每周）：审视想法 → 获取同行反馈 → 检查 arXiv → 用 FIVE+C 评分
+    \item \textbf{验证}（两周冲刺）：构建原型 → 展示给学长 → 改进 → 如有前景则展示
+\end{itemize}
+
+\textbf{建立你的"想法交流"网络：} 每周与 3-4 位同行会面，每人带来一个想法/问题，先不批评——只做建设性讨论，记录一切。
+
+\begin{tcolorbox}[colback=yellow!10,colframe=red!50,title=关键经验]
+• \textbf{模式识别}：如果 3 个以上的人提到同一个问题，就去调研它\\
+• \textbf{执行 $>$ 想法}：不要害怕"被偷"——实现比想法更重要\\
+• \textbf{从不完美开始}：先做到"够好"，然后迭代\\
+• \textbf{相信前辈的警告}：当学长说"避开这个"时，认真倾听
+\end{tcolorbox}
+
+\textbf{快速验证清单：}
+$\square$ 已与 3 人以上讨论
+$\square$ 一句话解释已准备好
+$\square$ 已检查近两年的会议论文
+$\square$ 有必要的资源
+$\square$ 能在两周内构建原型
+
+\subsubsection{实验设计}
+\begin{itemize}
+    \item \textbf{从简单开始}：先实现基线方法
+    \item \textbf{单一变量}：每次只改变一个因素
+    \item \textbf{假设驱动}：运行实验前始终有明确的假设
+    \item \textbf{负面结果}：记录失败的尝试——它们同样有价值！
+\end{itemize}
+
+\subsection{协作最佳实践}
+
+\subsubsection{沟通}
+\begin{itemize}
+    \item \textbf{定期汇报}：每周向导师汇报进展
+    \item \textbf{尽早提问}：不要独自苦苦挣扎好几天
+    \item \textbf{分享草稿}：尽早、经常获取写作反馈
+    \item \textbf{会议准备}：带着议程和具体问题参加会议
+\end{itemize}
+
+\subsubsection{代码协作}
+\begin{itemize}
+    \item \textbf{代码审查}：对重要变更请求代码审查
+    \item \textbf{文档}：为每个项目写 README 文件
+    \item \textbf{模块化设计}：编写可复用、可测试的代码
+    \item \textbf{共同标准}：遵循团队编码规范
+\end{itemize}
+
+\subsubsection{积极参与组会}
+
+\begin{tcolorbox}[colback=green!10,colframe=green!50,title=为什么积极参与很重要]
+在组会上提问不仅仅是被鼓励的——它对你作为研究者的成长至关重要。原因如下：
+
+\textbf{对你的益处：}
+\begin{itemize}
+    \item \textbf{加深理解}：问题帮助澄清你可能误解的概念
+    \item \textbf{建立联系}：你的问题可以激发合作和讨论
+    \item \textbf{培养批判性思维}：学会提出好问题是关键的研究技能
+    \item \textbf{展示投入}：积极参与表明你的兴趣和承诺
+    \item \textbf{向他人学习}：通常，你的同行有同样的问题但犹豫不问
+    \item \textbf{练习沟通}：清晰地组织问题可以提高你传达研究想法的能力
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{常见的提问类型：}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|p{3.5cm}|p{11cm}|}
+\hline
+\textbf{问题类型} & \textbf{示例问题} \\
+\hline
+\hline
+\textbf{澄清类问题} &
+\begin{itemize}[leftmargin=*,noitemsep,topsep=0pt]
+    \item "能否解释一下你所说的[技术术语]是什么意思？"
+    \item "这与[相关概念]有什么区别？"
+    \item "能否重新推导/演示一下那个算法？"
+\end{itemize} \\
+\hline
+\textbf{方法论问题} &
+\begin{itemize}[leftmargin=*,noitemsep,topsep=0pt]
+    \item "为什么选择这个特定的方法？"
+    \item "你考虑过[替代方法]吗？"
+    \item "你是如何处理[特定挑战]的？"
+    \item "计算资源需求是多少？"
+\end{itemize} \\
+\hline
+\textbf{结果与解释} &
+\begin{itemize}[leftmargin=*,noitemsep,topsep=0pt]
+    \item "这些结果的统计显著性如何？"
+    \item "这些结果与基线相比如何？"
+    \item "你认为这个意外结果的原因是什么？"
+    \item "你在[不同数据集/场景]上测试过吗？"
+\end{itemize} \\
+\hline
+\textbf{更广泛的影响} &
+\begin{itemize}[leftmargin=*,noitemsep,topsep=0pt]
+    \item "这与[该领域的其他工作]有什么关系？"
+    \item "这项研究的实际应用是什么？"
+    \item "这种方法的局限性是什么？"
+    \item "我们应该考虑哪些伦理问题？"
+\end{itemize} \\
+\hline
+\textbf{未来工作问题} &
+\begin{itemize}[leftmargin=*,noitemsep,topsep=0pt]
+    \item "这个项目的下一步是什么？"
+    \item "这如何扩展到[相关问题]？"
+    \item "如果重新开始，你会做什么不同的事？"
+    \item "你预见到的最大挑战是什么？"
+\end{itemize} \\
+\hline
+\end{tabular}
+\caption{组会中常见的提问类型}
+\label{tab:question-types}
+\end{table}
+
+
+
+\subsection{职业发展}
+
+\subsubsection{需要培养的技能}
+\begin{itemize}
+    \item \textbf{编程}：Python、PyTorch/TensorFlow、Git
+    \item \textbf{数学}：线性代数、概率论、优化
+    \item \textbf{写作}：技术写作、\LaTeX
+    \item \textbf{演讲}：公开演讲、可视化
+\end{itemize}
+
+
+\section{报告写作标准}
+
+\subsection{结构}
+遵循标准科学论文结构：
+\begin{enumerate}
+    \item 摘要（150--250 词）
+    \item 引言
+    \item 相关工作
+    \item 方法论
+    \item 实验
+    \item 结果与讨论
+    \item 结论
+    \item 参考文献
+\end{enumerate}
+
+
+
+
+\subsection{学术写作风格}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={一些个人写作建议}]
+\textbf{1. 清晰优于复杂：} 大词不等于好文章。选择简单、精确的语言，而不是不必要的复杂词汇。
+
+\textbf{2. 自然地引入缩写：} 始终在缩写之前定义术语，并将其自然地融入文本中。
+
+\textbf{不好的写法：} "...transforms raw OMOP (Observational Medical Outcomes Partnership) CDM (Common Data Model) data..."\\
+\textbf{好的写法：} "...transforms the CRITICAL data recorded in the Observational Medical Outcomes Partnership Common Data Model (OMOP CDM)..."
+
+\textbf{记住：} 你的目标是清晰地传达想法，而不是用词汇给人留下印象。如果更简单的词能表达清楚，就用它。
+\end{tcolorbox}
+
+\subsection{常见错误}
+
+\begin{tcolorbox}[colback=red!10,colframe=red!50,title=不要这样做！]
+\begin{enumerate}
+    \item \textbf{文字墙}：永远不要用大段文字填满幻灯片
+    \item \textbf{坐标轴不清}：在讨论图表之前始终标注坐标轴
+    \item \textbf{缺乏背景}：不要直接跳到结果而不做铺垫
+    \item \textbf{字体不可读}：从房间后排测试可见性
+    \item \textbf{不排练}：始终练习你的时间控制
+    \item \textbf{忽视提问}：仔细倾听并回答被问到的问题
+\end{enumerate}
+\end{tcolorbox}
+
+
+\section{每周汇报格式}
+
+\subsection{结构}
+你的每周汇报应包括：
+\begin{enumerate}
+    \item \textbf{进展}：你完成了什么
+    \item \textbf{挑战}：你遇到了什么困难
+    \item \textbf{计划}：下周你将做什么
+    \item \textbf{问题}：你需要什么帮助
+\end{enumerate}
+
+\subsection{最佳实践}
+\begin{itemize}
+    \item 保持汇报简洁（5-10 张幻灯片）
+    \item 包含进展的可视化证据
+    \item 对困难坦诚相告
+    \item 准备好具体的问题
+\end{itemize}
+
+\subsection{与导师的有效沟通}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={高效会议的基础}]
+每次与导师的会议都应该是一次\textbf{策略性对话}，而不仅仅是状态报告。有效的沟通意味着清晰地阐述问题、进展和计划——同时准备好为你的想法辩护并接受指导。
+\end{tcolorbox}
+
+\textbf{有效导师会议的关键要素：}
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{清晰定义问题}
+    \begin{itemize}
+        \item 你正在解决什么具体的研究问题或技术挑战？
+        \item 为什么这个问题对你的项目很重要？
+        \item 你的导师需要什么背景信息来理解这个问题？
+    \end{itemize}
+
+    \item \textbf{汇报你做了什么}
+    \begin{itemize}
+        \item 这段时间你运行了什么实验？
+        \item 你尝试了什么方法？
+        \item 展示具体结果（图表、表格、代码片段）
+    \end{itemize}
+
+    \item \textbf{说明你解决了什么}
+    \begin{itemize}
+        \item 你成功解决了哪些问题？
+        \item 你获得了什么洞见？
+        \item 什么有效，什么无效？
+    \end{itemize}
+
+    \item \textbf{识别未解决的问题}
+    \begin{itemize}
+        \item 你仍然面临什么挑战？
+        \item 你在哪里卡住了，为什么？
+        \item 你尝试了什么但没有成功？
+    \end{itemize}
+
+    \item \textbf{展示你的下一步计划}
+    \begin{itemize}
+        \item 你接下来的具体计划是什么？
+        \item 你打算如何应对剩余的挑战？
+        \item 你的时间表是什么？
+    \end{itemize}
+
+    \item \textbf{积极参与讨论}
+    \begin{itemize}
+        \item \textbf{讨论的问题}：你想一起头脑风暴什么具体问题？
+        \item \textbf{寻求的指导}：你需要什么策略性建议或方向？
+        \item \textbf{为想法辩护}：准备好解释你的推理并证明你的方法合理
+        \item \textbf{积极倾听}：记录导师的建议并提出澄清性问题
+    \end{itemize}
+\end{enumerate}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={常见误区}]
+\begin{itemize}
+    \item \textbf{模糊的更新}："我还在做"——这告诉导师的信息为零
+    \item \textbf{隐藏问题}：害怕承认卡住了只会浪费每个人的时间
+    \item \textbf{被动倾听}：会议不应该是单向讲座——积极参与
+    \item \textbf{没有准备}：没有明确议程就来开会表明缺乏认真态度
+    \item \textbf{防御心态}：无法为自己的想法辩护\textit{或者}对反馈封闭
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!40,title={会议准备清单}]
+每次导师会议前准备：
+\begin{itemize}
+    \item 书面进展摘要（即使很简短）
+    \item 可视化证据（图表、表格、架构图）
+    \item 按优先级排列的具体问题
+    \item 你对当前挑战的解决方案提议
+    \item 下一阶段的具体计划
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{记住：} 导师的时间很宝贵，但你的时间也是。有效的沟通确保双方从每次会议中获得最大价值，加速你的研究进展，增强师生关系。
+
+\newpage
+
+
+\newpage
+
+\section{如何成为高效的博士生}
+
+\subsection{战略性研究框架}
+
+\begin{tcolorbox}[colback=blue!5,colframe=darkblue,title=博士成功的基石]
+成为一名高效的博士生不仅需要努力工作——它要求策略性思维、系统化的组织和刻意的练习。本节综合了全球成功研究者的最佳实践。
+\end{tcolorbox}
+
+\subsubsection{清晰的目标和结构化的产出路径}
+
+\textbf{定义你的北极星：}
+\begin{itemize}
+    \item \textbf{长期愿景}：你想在你的领域产生什么样的影响？
+    \item \textbf{三年计划}：将博士分解为年度里程碑
+    \item \textbf{季度目标}：具体的交付成果（论文、代码、实验）
+    \item \textbf{每周目标}：推动你实现季度目标的具体任务
+\end{itemize}
+
+\textbf{产出驱动的方法：}
+\begin{enumerate}
+    \item \textbf{论文}：每年瞄准 2-3 篇高质量发表
+    \item \textbf{代码}：构建可复用的研究工具和框架
+    \item \textbf{展示}：在实验室会议和学术会议上定期练习
+    \item \textbf{合作}：积极参与 1-2 个合作项目
+\end{enumerate}
+
+\subsubsection{每日行动系统}
+
+\begin{tcolorbox}[colback=green!10,colframe=green!50,title=博士日常安排]
+\textbf{上午（深度工作时间段）：}
+\begin{itemize}
+    \item 2-4 小时不间断的研究/编程
+    \item 不查邮件、不开会、不受干扰
+    \item 专注于你最重要的任务
+\end{itemize}
+
+\textbf{下午（协作工作）：}
+\begin{itemize}
+    \item 会议、讨论、代码审查
+    \item 邮件和行政事务
+    \item 阅读论文、了解最新进展
+\end{itemize}
+
+\textbf{晚间（反思与计划）：}
+\begin{itemize}
+    \item 在研究日志中记录每日进展
+    \item 规划次日优先事项
+    \item 轻阅读或技能提升
+\end{itemize}
+\end{tcolorbox}
+
+\subsubsection{个人反思——在研究生活中驾驭模式切换}
+
+\begin{tcolorbox}[colback=purple!5,colframe=royalpurple,title=个人反思——在研究生活中驾驭模式切换]
+在我从被动贡献者向独立研究者转变的旅程中，我意识到生产力不仅仅是"更努力地工作"。对我来说，挑战越来越变成如何在三种认知模式之间高效切换：
+
+\begin{itemize}
+    \item \textbf{深度产出}：当我在写作或实现技术密集型内容时；
+    \item \textbf{广泛阅读}：快速浏览论文、记录趋势、消化不熟悉的想法；
+    \item \textbf{协作交流}：管理项目、讨论想法、参加会议。
+\end{itemize}
+
+每种模式都需要不同的心态——而我仍在锻炼如何在它们之间无摩擦地切换的能力。
+
+最近，我一直在尝试建立小习惯来缓解这些转换。例如，我把阅读安排在精力较低的下午，把深度工作集中在上午。我也在学会尊重上下文切换的成本——它是真实存在的。这没关系。
+
+\textit{博士的进步不仅在于深度——也在于优雅而清晰地在不同角色之间切换。}
+\end{tcolorbox}
+
+\textbf{基于 Notion 的管理系统：}
+\begin{itemize}
+    \item \textbf{研究仪表盘}：追踪所有项目、截止日期和进展
+    \item \textbf{文献数据库}：用标签、笔记和关联组织论文
+    \item \textbf{实验日志}：记录所有实验的参数和结果
+    \item \textbf{想法捕获}：快速记录研究想法和洞见
+    \item \textbf{每周回顾}：反思进展并调整计划
+\end{itemize}
+
+\subsection{各领域顶级会议}
+
+\subsubsection{AI/机器学习会议}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{会议} & \textbf{全称} & \textbf{研究方向} & \textbf{网站} \\
+\midrule
+\multicolumn{4}{l}{\textbf{核心机器学习（第一梯队）}} \\
+\href{https://neurips.cc/}{NeurIPS} & Neural Information Processing Systems & 通用ML & neurips.cc \\
+\href{https://icml.cc/}{ICML} & International Conference on Machine Learning & ML理论 & icml.cc \\
+\href{https://iclr.cc/}{ICLR} & International Conference on Learning Representations & 深度学习 & iclr.cc \\
+\midrule
+\multicolumn{4}{l}{\textbf{计算机视觉}} \\
+\href{https://cvpr.thecvf.com/}{CVPR} & Computer Vision and Pattern Recognition & 视觉 & cvpr.thecvf.com \\
+\href{https://iccv2023.thecvf.com/}{ICCV} & International Conference on Computer Vision & 视觉 & thecvf.com \\
+\href{https://eccv.ecva.net/}{ECCV} & European Conference on Computer Vision & 视觉 & eccv.ecva.net \\
+\midrule
+\multicolumn{4}{l}{\textbf{自然语言处理}} \\
+\href{https://aclanthology.org/}{ACL} & Association for Computational Linguistics & NLP & aclanthology.org \\
+\href{https://2024.emnlp.org/}{EMNLP} & Empirical Methods in NLP & NLP & emnlp.org \\
+\href{https://naacl.org/}{NAACL} & North American Chapter of ACL & NLP & naacl.org \\
+\midrule
+\multicolumn{4}{l}{\textbf{通用人工智能}} \\
+\href{https://aaai.org/}{AAAI} & Association for Advancement of AI & 通用AI & aaai.org \\
+\href{https://ijcai.org/}{IJCAI} & International Joint Conference on AI & 通用AI & ijcai.org \\
+\midrule
+\multicolumn{4}{l}{\textbf{数据挖掘与网络}} \\
+\href{https://kdd.org/}{KDD} & Knowledge Discovery and Data Mining & 数据挖掘 & kdd.org \\
+\href{https://www2024.thewebconf.org/}{WWW} & The Web Conference & 网络/信息检索 & thewebconf.org \\
+\bottomrule
+\end{tabular}
+\caption{顶级 AI/ML 会议，投稿截止日期通常在会议前 4-6 个月}
+\end{table}
+
+\subsubsection{计算机科学会议}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{会议} & \textbf{全称} & \textbf{方向} & \textbf{网站} \\
+\midrule
+\multicolumn{4}{l}{\textbf{数据库}} \\
+\href{https://sigmod.org/}{SIGMOD} & Special Interest Group on Management of Data & 数据库 & sigmod.org \\
+\href{https://vldb.org/}{VLDB} & Very Large Data Bases & 数据库 & vldb.org \\
+\midrule
+\multicolumn{4}{l}{\textbf{系统}} \\
+\href{https://www.usenix.org/conference/osdi24}{OSDI} & Operating Systems Design and Implementation & 系统 & usenix.org \\
+\href{https://sosp.org/}{SOSP} & Symposium on Operating Systems Principles & 系统 & sosp.org \\
+\midrule
+\multicolumn{4}{l}{\textbf{图形学}} \\
+\href{https://siggraph.org/}{SIGGRAPH} & Special Interest Group on Graphics & 图形学 & siggraph.org \\
+\midrule
+\multicolumn{4}{l}{\textbf{人机交互}} \\
+\href{https://chi2024.acm.org/}{CHI} & Conference on Human Factors in Computing & HCI & chi.acm.org \\
+\href{https://uist.acm.org/}{UIST} & User Interface Software and Technology & HCI & uist.acm.org \\
+\midrule
+\multicolumn{4}{l}{\textbf{安全}} \\
+\href{https://www.ieee-security.org/TC/SP2024/}{S\&P} & IEEE Symposium on Security and Privacy & 安全 & ieee-security.org \\
+\href{https://www.sigsac.org/ccs/}{CCS} & Computer and Communications Security & 安全 & sigsac.org \\
+\href{https://www.usenix.org/conference/usenixsecurity24}{USENIX} & USENIX Security Symposium & 安全 & usenix.org \\
+\midrule
+\multicolumn{4}{l}{\textbf{编程语言}} \\
+\href{https://pldi.sigplan.org/}{PLDI} & Programming Language Design and Implementation & PL & pldi.sigplan.org \\
+\href{https://popl.mpi-sws.org/}{POPL} & Principles of Programming Languages & PL & popl.mpi-sws.org \\
+\bottomrule
+\end{tabular}
+\caption{不同研究方向的顶级计算机科学会议}
+\end{table}
+
+\subsubsection{AI for Science 会议和发表场所}
+
+\textbf{AI4Science 新兴领域}
+
+AI for Science 是一个新兴的交叉学科领域，机器学习与传统科学在此交汇。这些场所为发表连接 AI 和科学领域的工作提供了独特的机会。
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{场所} & \textbf{类型} & \textbf{网站/信息} \\
+\midrule
+\multicolumn{3}{l}{\textbf{主要 ML 会议的 Workshop}} \\
+\href{https://ai4sciencecommunity.github.io/}{AI4Science @ NeurIPS} & Workshop & ai4sciencecommunity.github.io \\
+\href{https://ai4sciencecommunity.github.io/}{AI4Science @ ICLR} & Workshop & ai4sciencecommunity.github.io \\
+\href{https://ai4sciencecommunity.github.io/}{AI4Science @ ICML} & Workshop & ai4sciencecommunity.github.io \\
+ML4Physical Sciences @ NeurIPS & Workshop & 每年在 NeurIPS 举办 \\
+Computational Biology @ ICML & Workshop & 每年在 ICML 举办 \\
+\midrule
+\multicolumn{3}{l}{\textbf{期刊}} \\
+\href{https://www.nature.com/natmachintell/}{Nature Machine Intelligence} & 期刊 & nature.com/natmachintell \\
+\href{https://www.science.org/journal/scirobotics}{Science Robotics} & 期刊 & science.org \\
+\href{https://www.rsc.org/journals-books-databases/about-journals/digital-discovery/}{Digital Discovery} & 期刊 & RSC Publishing \\
+\href{https://www.nature.com/npjcompumats/}{npj Computational Materials} & 期刊 & nature.com \\
+\href{https://journals.aps.org/prx/}{Physical Review X} & 期刊 & aps.org \\
+\midrule
+\multicolumn{3}{l}{\textbf{专业会议}} \\
+\href{https://www.mlsb.io/}{MLCB} & 计算生物学中的ML & mlsb.io \\
+\href{https://www.iscb.org/}{ISMB/ECCB} & 生物信息学 & iscb.org \\
+\href{https://www.aiche.org/}{AIChE} & 化学工程 + AI & aiche.org \\
+\bottomrule
+\end{tabular}
+\caption{结合机器学习与科学学科的 AI for Science 发表场所}
+\end{table}
+
+\subsection{发表策略}
+
+\subsubsection{会议时间线管理}
+
+\begin{tcolorbox}[colback=red!10,colframe=red!50,title=关键：提前 6 个月规划投稿]
+大多数顶级会议的截止日期在会议日期前 5-6 个月。错过一个截止日期意味着要等整整一年才有下一次机会！
+
+\textbf{论文投稿典型时间线：}
+\begin{itemize}
+    \item \textbf{T-6 个月}：开始实验和写作
+    \item \textbf{T-3 个月}：完成主要实验
+    \item \textbf{T-1 个月}：完成初稿，获取反馈
+    \item \textbf{T-1 周}：润色、校对、准备补充材料
+    \item \textbf{T-0}：提交并庆祝！
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=yellow!10,colframe=goldenyellow,title=进阶技巧：将你的个人截止日期提前一周]
+通过在实际截止日期前一周完成论文或项目，你不仅获得了润色的缓冲时间，还获得了一个强大的社交优势：当其他人在最后一周陷入恐慌时，你可以\textit{提供及时帮助}。这创造了一个自然的机会：
+
+\begin{itemize}
+    \item 加强与同行的关系
+    \item 学习他人如何组织研究和写作
+    \item 发现未来合作的潜力
+\end{itemize}
+
+许多研究合作始于在高压时刻伸出的援手。你的准备成为建立学术网络的机会，同时真诚地支持你的社区。
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={双盲评审的代码匿名化}]
+\textbf{必备工具：} \href{https://anonymous.4open.science/}{\textcolor{blue}{anonymous.4open.science}} —— 为论文投稿创建 GitHub 仓库的匿名版本。它删除所有作者信息和提交历史，同时为审稿人提供稳定的 URL。只需输入你的 GitHub URL，即可即时生成匿名副本。
+\end{tcolorbox}
+
+\subsubsection{质量与数量的平衡}
+
+\textbf{发表金字塔：}
+\begin{enumerate}
+    \item \textbf{旗舰论文}（每年 1 篇）：你最好的工作，投向顶级会议（NeurIPS、ICML、CVPR）
+    \item \textbf{扎实贡献}（每年 1-2 篇）：在专业会议上的优质工作
+    \item \textbf{Workshop 论文}（每年 2-3 篇）：早期想法、进行中的工作
+\end{enumerate}
+
+\begin{tcolorbox}[colback=purple!5,colframe=purple!40,title={个人反思：质量优于数量}]
+通过与资深研究者和导师的广泛交流，我学到了一个宝贵的经验。许多成功的教授分享说，虽然他们最初追求数量——在每个 workshop 和会议上发表——但最终意识到一个关键事实：
+
+\textbf{你的职业生涯最终取决于你最好的工作，而不是最长的发表列表。}
+
+是的，在博士早期，发表"数量型"论文完全没问题——甚至是可取的。它们帮助你：
+\begin{itemize}[leftmargin=1.5em]
+    \item 学习审稿流程并提高写作能力
+    \item 建立信心和势头
+    \item 在你的领域建立早期声誉
+\end{itemize}
+
+但要真正在你的领域脱颖而出，获得竞争激烈的教职或顶级工业界职位，你需要\textbf{代表性工作}——人们记住、引用并在其基础上继续构建的论文。这些论文：
+\begin{itemize}[leftmargin=1.5em]
+    \item 引入新颖的想法或重大改进
+    \item 通过大量实验进行了充分验证
+    \item 讲述了一个令社区共鸣的故事
+    \item 成为你"研究身份"的一部分
+\end{itemize}
+
+\textbf{我的建议：} 从数量开始以积累技能和信心，但始终朝着那个标志性贡献努力。当你准备好时，投入 6-12 个月在一个能定义你研究轨迹的项目上。
+\end{tcolorbox}
+
+\subsubsection{合作准则}
+
+\textbf{作者署名最佳实践：}
+\begin{itemize}
+    \item \textbf{第一作者}：主导项目，撰写论文主体
+    \item \textbf{贡献作者}：完成重要的实验或章节
+    \item \textbf{指导作者}：提供指导和反馈
+    \item 始终在项目早期讨论作者排序
+    \item 记录每篇论文的各人贡献
+\end{itemize}
+
+\subsubsection{技术论文规划：需要思考的关键点}
+
+\begin{tcolorbox}[colback=blue!5,colframe=darkblue,title=开始写技术论文之前]
+一篇成功的技术论文不仅仅是好的结果——而是清晰的思维。在写下第一个字之前，确保你能回答这些关于你工作的战略性问题。
+\end{tcolorbox}
+
+\textbf{一、论文核心要素}
+
+\textbf{1. 主要贡献：}
+\begin{itemize}
+    \item 我的核心创新是什么？是理论创新、算法设计、系统优化、应用场景，还是对现有方法的分析/统一？
+    \item 能否用一句话解释："我们首次解决了 X 重要问题"？
+    \item 是否有多层次贡献？（理论+实践；新方法+新任务；新分析+新基准）
+\end{itemize}
+
+\textbf{2. 结果展示策略：}
+\begin{itemize}
+    \item 哪些实验是\textbf{必须有的}核心对比？
+    \item 哪些是\textbf{辅助性的}消融实验/案例研究/可视化？
+    \item 是否需要多个基准测试（跨视觉/NLP）来展示通用性？
+    \item 能否用更少的资源或更高的效率达到 SOTA，或在特定数据/任务上显著超越？
+\end{itemize}
+
+\textbf{二、写作前的战略性问题}
+
+\textbf{1. 选题定位：}
+\begin{itemize}
+    \item 我的选题今年在这个会议上热不热？是否已经过于饱和？
+    \item 是否契合新兴趋势？（如"多模态 LLM"、"高效微调"、"长上下文建模"、"AI4Science"）
+    \item 是否与该会议过去的热门 session/workshop/特邀报告匹配？
+\end{itemize}
+
+\textbf{2. 创新性评估：}
+\begin{itemize}
+    \item 我的工作与过去一年的相关工作有什么明确区别？（不仅仅是简单调整）
+    \item 如果是组合创新（A+B），是否自然、有效、有洞见？
+    \item 是否有独特的视角或反直觉但有效的发现？
+\end{itemize}
+
+\textbf{3. 方法 vs 洞见的包装：}
+\begin{itemize}
+    \item 我的方法只是一个"合理的技巧"还是揭示了新的现象/结构/原理？
+    \item 哪种包装更好：新模型？新现象？更通用的框架？
+    \item 是否值得抽象为"xxx is all you need"、"rethinking xxx"或"beyond xxx"？
+\end{itemize}
+
+\textbf{4. 数据集和任务设计：}
+\begin{itemize}
+    \item 我是否提出了一个有代表性的新基准或新任务？
+    \item 如果使用现有数据，是否选择了正确的切入点/任务定义/评估指标？
+    \item 是否从应用角度提出了令人信服的动机？（如"当前模型在场景 X 中仍然失败"）
+\end{itemize}
+
+\textbf{5. 可复现性和泛化性：}
+\begin{itemize}
+    \item 他人能轻松复现我的工作吗？（对 NeurIPS/ICLR 至关重要）
+    \item 方法能否泛化到其他领域？
+    \item 是否做了足够的通用分析或可解释性实验来支持我的结论？
+\end{itemize}
+
+\textbf{三、战略与风险考量}
+
+\textbf{1. 成熟度 vs 抢先发：}
+\begin{itemize}
+    \item 我的工作更适合"精心打磨后成熟投稿"还是"先投第一轮，快速迭代"？
+    \item 是否应该先在 arXiv 上发布以确立时间线，还是等待完整版本？
+\end{itemize}
+
+\textbf{2. 投稿路线图：}
+\begin{itemize}
+    \item 是否应该用 workshop/spotlight/poster/oral 策略先熟悉领域社区？
+    \item 如果这轮被拒，我的备选会议是什么？（ICML → NeurIPS → ICLR → 领域专业会议）
+    \item 这篇论文如何融入我整体的博士发表策略？
+\end{itemize}
+
+\textbf{开始前的快速检查清单：}
+\begin{enumerate}
+    \item[$\square$] 能否用一句话解释我的贡献？
+    \item[$\square$] 是否有清晰的实验验证计划？
+    \item[$\square$] 是否检查了最近的论文（过去 6 个月）以确保新颖性？
+    \item[$\square$] 包装是否与会议趋势对齐？
+    \item[$\square$] 如果被拒是否有备选计划？
+\end{enumerate}
+
+\subsubsection{撰写有效的综述论文}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title=综述论文的价值]
+一篇真正好的综述远不止是文献堆砌。它要求同时掌握信息密度、结构清晰度和研究洞见。
+\end{tcolorbox}
+
+\textbf{一、综述论文的核心能力}
+
+\textbf{1. 快速检索与组织：}
+\begin{itemize}
+    \item 为研究社区提供组织良好的文献地图
+    \item 使读者能快速找到与其特定任务/问题/范式相关的论文
+    \item 创建清晰的分类、结构化表格和系统性总结
+    \item \textbf{目标}：读者仅通过你的图表就能找到相关工作，无需阅读原始论文
+\end{itemize}
+
+\textbf{2. 洞见与指导：}
+\begin{itemize}
+    \item 帮助读者理解整个研究方向的结构、空白、演变和未来机会
+    \item 回答关键问题：
+    \begin{itemize}
+        \item 哪些方向被过度研究 vs. 被忽视？
+        \item 哪些方法/技术已饱和 vs. 尚不成熟但有前景？
+        \item 该领域的关键挑战/争议/未解决问题是什么？
+    \end{itemize}
+\end{itemize}
+
+\textbf{二、提供组织框架}
+
+\textbf{3. 结构化思维方法：}
+\begin{itemize}
+    \item 不仅列出"有哪些论文"，而是教"如何组织这个研究领域"
+    \item 开发清晰的组织框架：
+    \begin{itemize}
+        \item 医疗 AI 论文的\textbf{临床路径框架}
+        \item NLP 综述的\textbf{任务 vs 输入-输出类型矩阵}
+        \item 视觉领域的\textbf{骨干网络 vs 头部层框架}
+        \item 清晰的架构区分（如 LLM vs Agent 系统）
+    \end{itemize}
+\end{itemize}
+
+\textbf{4. 构建知识分类体系：}
+\begin{itemize}
+    \item 帮助厘清模糊或误导性的术语、范式和任务定义
+    \item 需要澄清的关键问题：
+    \begin{itemize}
+        \item LLM 和 Agent 系统之间的本质区别是什么？
+        \item 诊断任务和推理任务的评估方式真的一样吗？
+        \item 某些 SOTA 结果是否只是"提示词调整"而非根本性创新？
+    \end{itemize}
+    \item 这种标准化在快速发展的领域（如医疗 LLM）中尤为重要
+\end{itemize}
+
+\textbf{三、批判性视角}
+
+\textbf{5. 超越总结：}
+\begin{itemize}
+    \item 不仅总结现有工作——还要识别"什么有问题"和"哪些假设值得重新思考"
+    \item 批判性洞见示例：
+    \begin{itemize}
+        \item "大多数模型假设完美的结构化输入，但这在真实临床环境中很少存在。"
+        \item "当前基准未能反映主导真实世界工作流的协调负担。"
+        \item "该领域在许多评估指标中混淆了相关性和因果关系。"
+    \end{itemize}
+    \item 这种"反思性综述"被认为更有洞见，能启发未来研究
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!10,colframe=red!50,title=综述论文的常见误区]
+\textbf{避免这些错误：}
+\begin{itemize}
+    \item \textbf{文献堆砌}：只列论文而不做综合分析
+    \item \textbf{缺乏批判性分析}：只描述不评价
+    \item \textbf{组织混乱}：没有清晰的框架或分类体系
+    \item \textbf{遗漏最新工作}：在快速发展的领域中，综述很快就会过时
+    \item \textbf{范围过窄}：只关注一种方法而不考虑替代方案
+\end{itemize}
+\end{tcolorbox}
+
+\textbf{综述论文快速检查清单：}
+\begin{enumerate}
+    \item[$\square$] 全面的文献覆盖与清晰的分类
+    \item[$\square$] 组织框架构建了该领域的结构
+    \item[$\square$] 对空白和局限性的批判性分析
+    \item[$\square$] 清晰识别的未来研究方向
+    \item[$\square$] 表格/图表能独立传达关键信息
+    \item[$\square$] 覆盖最新论文（过去 6-12 个月）
+    \item[$\square$] 该领域清晰的定义和分类体系
+\end{enumerate}
+
+\subsection{生产力系统和工具}
+
+\subsubsection{研究流水线管理}
+
+\begin{verbatim}
+想法产生 -> 文献综述 -> 假设形成
+        |                      |
+        v                      v
+实验设计 <- - - - - - - ->  初步结果
+        |                      |
+        v                      v
+完整实验 -> 分析 -> 写作 -> 投稿
+        |        |       |       |
+        v        v       v       v
+    [追踪]    [追踪]   [追踪]  [追踪]
+\end{verbatim}
+
+\textbf{各阶段工具：}
+\begin{itemize}
+    \item \textbf{想法产生}：Notion、Obsidian、研究日记
+    \item \textbf{文献综述}：Zotero、Mendeley、Connected Papers
+    \item \textbf{实验}：Weights \& Biases、MLflow、Sacred
+    \item \textbf{写作}：\LaTeX{} + Git、Overleaf 用于协作
+    \item \textbf{项目管理}：GitHub Projects、Trello、Asana
+\end{itemize}
+
+\subsubsection{时间管理策略}
+
+\begin{tcolorbox}[colback=green!10,colframe=green!50,title=博士生产力的 80/20 法则]
+\textbf{将 80\% 的时间用于：}
+\begin{itemize}
+    \item 直接贡献于论文的核心研究
+    \item 写作和提高沟通能力
+    \item 在你的具体方向建立深度专长
+\end{itemize}
+
+\textbf{限制在 20\% 的时间：}
+\begin{itemize}
+    \item 参加直接领域之外的报告
+    \item 行政事务和服务性工作
+    \item 探索边缘相关的话题
+\end{itemize}
+\end{tcolorbox}
+
+\subsubsection{博士研究的 AI 工具}
+
+\begin{tcolorbox}[colback=blue!5,colframe=darkblue,title={AI 增强型研究者}]
+研究格局已经发生了根本性变化。AI 工具不再是可选的效率技巧——它们正在成为有竞争力研究的核心基础设施。一个善于使用这些工具的现代博士生可以将数月的手动工作压缩到几天，并将认知精力花在真正重要的事情上：原创思维。
+
+本节涵盖我个人发现的两个最高杠杆应用：AI 辅助文献管理和 AI 编程助手。
+\end{tcolorbox}
+
+\textbf{一、AI 辅助文献综述}
+
+文献综述是早期研究中最耗时但认知回报最低的部分。好消息是：它也是 AI 提供最直接回报的地方。
+
+\textbf{Semantic Scholar API —— 你的文献智能层}
+
+\href{https://api.semanticscholar.org/}{Semantic Scholar} 是一个由 AI 驱动的学术搜索引擎，提供免费 API。与 Google Scholar 不同，它以编程方式提供结构化元数据：
+
+\begin{lstlisting}[style=bashstyle]
+# Search papers by keyword
+curl "https://api.semanticscholar.org/graph/v1/paper/search\
+  ?query=causal+inference+LLM\
+  &fields=title,year,authors,citationCount,abstract\
+  &limit=10"
+
+# Get citation network of a specific paper
+curl "https://api.semanticscholar.org/graph/v1/paper/{paper_id}/citations\
+  ?fields=title,year,authors"
+
+# Find papers that cite a landmark paper (build on prior work)
+curl "https://api.semanticscholar.org/graph/v1/paper/{paper_id}/references\
+  ?fields=title,year,authors"
+\end{lstlisting}
+
+\textbf{API 支持的实用工作流：}
+\begin{itemize}
+    \item \textbf{引用滚雪球}：自动遍历引用图谱以找到所有相关工作
+    \item \textbf{趋势检测}：追踪每年有多少论文引用某方法来判断其生命周期
+    \item \textbf{基线搜索}：通过引用次数+时效性排序找到真实的 SOTA
+    \item \textbf{BibTeX 生成}：直接拉取结构化元数据，无需从 PDF 复制粘贴
+\end{itemize}
+
+\textbf{NotebookLM 作为活知识库}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={个人经验：从 524 个 URL 到 269 个干净来源，一次会话完成}]
+当我需要系统性地学习一个新工具的完整文档（500+ 页）时，我使用 AI 助手自动获取站点地图，批量导入每个页面作为 NotebookLM 的独立来源，去重翻译版本，并运行审计。结果：一个干净、可搜索的知识库，零重复——在我做其他工作时完成。
+
+同样的模式适用于任何领域：批量导入相关论文，让系统清理和组织它们，然后用精确的问题查询知识库，而不是从头重新阅读论文。
+\end{tcolorbox}
+
+\href{https://notebooklm.google.com/}{Google NotebookLM} 是基于 Gemini 构建的 AI 知识引擎。其核心优势是\textbf{基于来源的回答}——每个答案都引用确切的来源段落，因此你可以验证并追溯到原始论文。与通用 LLM 不同，它不会产生虚假引用，因为它只从你明确提供的文档中提取信息。
+
+\textbf{对研究者的高价值用例：}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{3.5cm}p{9cm}@{}}
+\toprule
+\textbf{用例} & \textbf{如何执行} \\
+\midrule
+\textbf{论文集问答} & 导入某主题 20--50 篇论文，提出跨论文的综合问题 \\
+\textbf{相关工作起草} & 导入候选引文，提示："总结每篇论文与[你的方法]的关系" \\
+\textbf{方法论比较} & 导入基线方法，提问："比较这些论文的评估协议" \\
+\textbf{空白识别} & 提问："这些论文明确留给未来工作的问题是什么？" \\
+\textbf{播客生成} & 自动生成总结你论文集的双人对话——适合路上听 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{需要了解的关键局限}：NotebookLM 没有公共 API，因此批量操作（导入 100+ URL、去重、审计）需要浏览器自动化。这是 AI 助手作为编排层发挥威力的地方——见下一节。
+
+\textbf{二、AI 编程助手}
+
+现代 AI 编程助手不是自动补全工具。它们能理解你的代码库，推理架构决策，编写和运行测试，并自主迭代修复 bug。善用它们的研究者和不用的研究者之间的生产力差距已经很大——而且还在拉大。
+
+\textbf{AI 编程助手能为你的研究做什么：}
+\begin{itemize}
+    \item \textbf{消除样板代码}：数据加载、训练循环、评估脚本、日志设置——这些都是已解决的问题。描述你的需求，秒获可用代码。
+    \item \textbf{调试}：粘贴错误信息和上下文；助手追踪根因并提出修复方案。对晦涩的 CUDA 错误和张量形状不匹配特别有用。
+    \item \textbf{重构}："让这个可复现"、"添加参数解析"、"用实验配置包装它"——结构性改进不费工夫。
+    \item \textbf{快速基线实现}：从论文实现新基线？给助手相关论文段落，让它实现该方法。以此为起点，然后仔细验证。
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={关键：验证 AI 生成的代码}]
+AI 编程助手会犯错——尤其是在新颖架构、边缘情况和领域特定惯例上。永远不要将 AI 生成的代码直接提交到论文中而不：
+\begin{enumerate}
+    \item 运行它并验证输出是否符合预期行为
+    \item 逐行阅读它以理解它在做什么
+    \item 测试边缘情况（空批次、单样本输入、极端值）
+    \item 如果它是你结果的核心部分，让同事审查
+\end{enumerate}
+目标是用 AI 消除繁琐工作，而不是外包思考。你的名字在论文上。
+\end{tcolorbox}
+
+\textbf{推荐工具及使用场景：}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{2.8cm}p{4.5cm}p{5cm}@{}}
+\toprule
+\textbf{工具} & \textbf{最适合} & \textbf{备注} \\
+\midrule
+\textbf{Claude Code} & 长时间任务：重构整个代码库、编写完整流水线、多文件变更 & 在终端中运行；可直接读写文件 \\
+\textbf{GitHub Copilot} & 编码中的行内补全 & 集成到 VS Code/JetBrains \\
+\textbf{Cursor} & 混合模式：行内建议+本地文件聊天 & 擅长导航不熟悉的代码库 \\
+\textbf{Gemini in Colab} & Notebook 级别的任务；适合数据探索 & 有免费版；原生 Google Drive 集成 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{三、AI 增强型研究工作流}
+
+真正的杠杆来自于将这些工具组合成统一的流水线：
+
+\begin{verbatim}
+确定研究主题
+      |
+      v
+Semantic Scholar API  ──>  候选论文列表（结构化元数据）
+      |
+      v
+NotebookLM 笔记本    ──>  批量导入、去重、审计
+      |
+      v
+AI 问答会话          ──>  综合相关工作、识别空白
+      |
+      v
+AI 编程助手          ──>  实现基线、设置实验
+      |
+      v
+你                   ──>  原创洞见、批判性判断、写作
+\end{verbatim}
+
+这个流水线不是替代你的思考——它消除了思考前后的摩擦，让你更多的时间花在只有你能做的部分。
+
+\begin{tcolorbox}[colback=purple!5,colframe=royalpurple,title={个人反思：重新定义"做研究"的含义}]
+当我刚开始读博时，头几个月都在逐篇阅读论文、手动提取关键想法，总觉得自己永远赶不上。当时的心理模型是：读得越多 = 知道得越多 = 研究越好。
+
+我逐渐学到的是，大多数研究的瓶颈不是信息获取——而是你的问题质量和实验的严谨性。一旦我开始使用 AI 工具处理信息管道（文献组织、代码脚手架、实验追踪），我发现自己花更多时间在研究中真正有趣的部分：思考为什么某些东西不工作、找到更简洁的表述、或者注意到两个看似独立的问题实际上是同一个问题。
+
+这些工具不会让你的研究想法变得更好。但它们可以释放足够的心智空间，让你有能力自己把想法变得更好。
+\end{tcolorbox}
+
+\subsubsection{心理健康与可持续性}
+
+\textbf{保持长期生产力：}
+\begin{itemize}
+    \item \textbf{定期休息}：周末休息，使用假期
+    \item \textbf{身体健康}：每周锻炼 3-4 次
+    \item \textbf{社交联系}：保持研究之外的人际关系
+    \item \textbf{爱好}：保持非学术的兴趣爱好
+    \item \textbf{支持网络}：与同行和导师建立关系
+\end{itemize}
+
+\textbf{应对冒充者综合症：}
+
+\textit{你不是一个人——70\% 的博士生经历过冒充者综合症。它在参加会议、阅读令人印象深刻的论文或进入新实验室后尤为常见。}
+
+\textbf{识别信号：}
+\begin{itemize}
+    \item "我不属于这里"或"我不够聪明"
+    \item 将成功归因于运气而非能力
+    \item 害怕被"发现"是无能的
+    \item 不断与他人比较
+\end{itemize}
+
+\textbf{应对策略：}
+\begin{itemize}
+    \item \textbf{保持"成就日记"}：记录成就、积极反馈和进步
+    \item \textbf{正常化挣扎}：每个人都面临挑战——他们只是不宣传
+    \item \textbf{关注成长}：与过去的自己比较，而不是与他人
+    \item \textbf{与同行交流}：你会发现每个人有时都有这种感受
+    \item \textbf{重新构架想法}：
+    \begin{itemize}
+        \item "我知道得不够多" → "我来这里就是为了学习"
+        \item "那只是运气" → "我创造了成功的条件"
+        \item "每个人都更聪明" → "每个人都有不同的优势"
+    \end{itemize}
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!10,colframe=red!50,title={记住：博士是马拉松，不是短跑}]
+可持续的生产力胜过高强度爆发后的倦怠。建立支持持续、长期进步的系统，而不是依赖英雄式的努力。
+\end{tcolorbox}
+
+\subsubsection{理解我的认知模式切换与休息}
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!40,title={作者注}]
+本节记录了我在一个情感强烈时刻的个人反思。它不是一个准则，而是邀请你停下来、反思、并重新与你自己的旅程对齐。
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={个人反思：为什么我很难休息}]
+\textit{"真正高质量的生活不取决于爆发式的强度，而取决于长期可持续的积累和创造。"}
+
+\vspace{0.3em}
+我经常内化一种观念：休息 = 懒惰。或者我无意识地逃避休息，因为它让我面对更深层的恐惧：缺乏方向感、对不足的恐惧、对失败的恐惧。即使没有外部问责，我仍然会听到一个"内在导师"的声音告诉我还不够好。
+
+\vspace{0.3em}
+当我停止工作时产生的强烈内疚和焦虑来自于一个典型的\textbf{内化压力和自我设定标准}的案例。我在自己身上发现的根本原因包括：
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item 内化的自我评价系统——我的价值与生产力挂钩
+    \item 条件反射：进步意味着安全
+    \item 静止时的情感回避——活动作为逃避
+\end{enumerate}
+
+在我的情况下，这不是偷懒——而是\textbf{害怕没有产出的自己}。
+
+\vspace{0.5em}
+但我学到了：休息不是价值的缺席——它是再生的空间。
+
+\vspace{0.5em}
+\begin{center}
+\colorbox{yellow!20}{\parbox{0.9\textwidth}{\centering\textbf{休息不是好行为的奖励。它是好行为的前提。}}}
+\end{center}
+\vspace{0.5em}
+
+就像给电池充电一样——你不会让一台机器不停运转却期望它永远完美运行。
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={我发现的真正休息的三个关键功能}]
+\textbf{功能一：能量恢复}\\
+我的大脑和身体就像电动车——无论多先进，不充电就跑不远。
+
+\begin{center}
+\textit{没有高质量的休息，我不是"缺乏意志力"——我是电量耗尽了。}
+\end{center}
+
+\vspace{0.5em}
+\textbf{功能二：想法孵化}\\
+我的突破性想法往往在我\textbf{没有}主动思考时出现——散步时、洗澡时、睡觉时。那是我的\textbf{默认模式网络（DMN）}在工作。
+
+\vspace{0.5em}
+\textbf{功能三：生活节奏调节器}\\
+休息是我调节长期动力的方式。不是"推到崩溃"，而是选择\textit{节律性的可持续性}：
+\begin{itemize}[leftmargin=1.5em]
+    \item 稳定性使我保持一致
+    \item 灵活性使我保持韧性
+    \item 恢复使我能够扩展
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=red!5,colframe=red!40,title={我必须克服的危险迷思："休息 = 倒退"}]
+我曾携带这些需要更新的内心剧本：
+
+\vspace{0.5em}
+\begin{center}
+\begin{tabular}{p{5.5cm}|p{6.5cm}}
+\toprule
+\textbf{我的旧剧本} & \textbf{我更新后的信念} \\
+\midrule
+"我还不能休息" & "高质量的休息 = 为明天的工作做好准备" \\
+\hline
+"我会落后" & "恢复帮助我走得更远" \\
+\hline
+"别人都在拼命" & "别人在冲刺；我在为马拉松训练" \\
+\hline
+"我还没有赢得休息的资格" & "我不是机器。休息是策略，不是奢侈。" \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.5em}
+\textbf{我的领悟：} 这不是软弱——这是我拒绝参与一种破碎的产出文化。
+\end{tcolorbox}
+
+\subsubsection{我与规划谬误的斗争}
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!40,title={作者注}]
+本节分享我在过度承诺和交付不足方面的持续斗争。这是对博士生活中最常见但情感上最消耗的一个方面的深度个人反思。
+\end{tcolorbox}
+
+在研究中，我不断犯同样的错误："这周我要完成实验、分析数据、写出初稿"——结果到周末发现我几乎只完成了承诺的一半。这种模式不仅令人沮丧；它创造了一个内疚和焦虑的循环，对心理健康和生产力都是毁灭性的。
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={为什么会这样：规划谬误}]
+\textbf{规划谬误：} 系统性地低估完成任务所需时间的倾向，即使我们之前经历过类似的延误。
+
+这种认知偏差几乎影响每一个做研究的人，因为：
+\begin{itemize}[leftmargin=1.5em]
+    \item 我们关注理想场景而忽视潜在障碍
+    \item 我们低估不确定性和意外情况
+    \item 我们高估自己对外部因素的控制力
+\end{itemize}
+
+加上\textbf{乐观偏差}——我们倾向于相信事情会比统计数据显示的更好——这为长期过度承诺创造了完美条件。
+\end{tcolorbox}
+
+\textbf{为什么我总是陷入这个陷阱：}
+
+有三股主要力量驱动我的过度承诺习惯：
+
+\vspace{0.5em}
+\textbf{外部压力：}
+\begin{itemize}[leftmargin=1.5em]
+    \item 导师期望和每周会议承诺
+    \item 与其他研究者的合作截止日期
+    \item 会议投稿截止日期
+    \item 需要显得"高产"和"在正轨上"
+\end{itemize}
+
+\textbf{内部动机：}
+\begin{itemize}[leftmargin=1.5em]
+    \item 对研究进展的真诚热情
+    \item 害怕让导师和合作者失望
+    \item 渴望证明自己是有能力的研究者
+    \item 对好研究本质上缓慢的节奏缺乏耐心
+\end{itemize}
+
+\textbf{认知扭曲：}
+\begin{itemize}[leftmargin=1.5em]
+    \item 我更生动地记住成功的几周而非困难的几周
+    \item 我低估意外情况的频率
+    \item 我假设过去的延误是"一次性"事件而非常态
+\end{itemize}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={我的应变策略}]
+经过多年的这种循环，我开发了几种真正有帮助的实用方法：
+
+\textbf{1. 无情的任务分解：}
+不用模糊的目标如"这周分析数据"，我把所有事情分解到最小的有意义单元，并附上具体的时间估计。然后将每个估计乘以 1.5-2 倍作为缓冲，以应对不可避免的复杂情况和意外问题。
+
+\textbf{2. 外部现实检查：}
+我保持一个简单的日志：\textit{原始估计 vs. 实际花费时间}
+\begin{center}
+\begin{tabular}{p{4cm}|p{3cm}|p{3cm}}
+\toprule
+\textbf{任务} & \textbf{估计} & \textbf{实际} \\
+\midrule
+文献综述 & 4 小时 & 9 小时 \\
+代码调试 & 2 小时 & 7 小时 \\
+撰写方法部分 & 6 小时 & 12 小时 \\
+\bottomrule
+\end{tabular}
+\end{center}
+追踪几周后，我发现了自己的个人"乘数"——我一直低估大约 2.3 倍。
+
+\textbf{3. 防御性日程安排：}
+\begin{itemize}[leftmargin=1.5em]
+    \item 我只承诺可用时间 60\% 能完成的工作量
+    \item 我安排"缓冲时间块"应对不可避免的超时
+    \item 我将"乐观时间线"（内部规划）与"承诺时间线"（外部承诺）分开
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=purple!5,colframe=purple!40,title={我的个人领悟}]
+规划谬误不是性格缺陷——它是一种自然的人类倾向，被研究的不可预测性所放大。学会\textit{顺应}这种倾向而不是对抗它，对我的生产力和心态都是变革性的。
+
+我已经不再试图做那个完美估计一切的研究者。相反，我成了那个建立现实缓冲、追踪模式、管理期望（包括自己的期望）的研究者。
+
+\textbf{改变一切的心态转变：} 过度承诺不是"有雄心"——而是不切实际。真正的雄心是建立在诚实的自我认知之上的可持续进步。
+\end{tcolorbox}
+
+\subsection{学术社交网络}
+
+\subsubsection{建立你的研究网络}
+
+\textbf{会议社交策略：}
+\begin{enumerate}
+    \item \textbf{会议前}：
+    \begin{itemize}
+        \item 浏览已接收论文，确定感兴趣的作者
+        \item 准备你的电梯演讲（30 秒介绍你的研究）
+        \item 安排与你想认识的研究者的会面
+        \item 加入会议的 Slack/Discord（如果有的话）
+    \end{itemize}
+
+    \item \textbf{会议中}：
+    \begin{itemize}
+        \item 参加海报展示——最容易认识人的地方
+        \item 在问答环节提出有深度的问题
+        \item 参加社交活动和 workshop
+        \item \textbf{午餐时和陌生人坐一起}——不要只和实验室的人
+        \item 在咖啡休息时间附近站着——天然的对话起点
+        \item 交换联系方式并后续跟进
+    \end{itemize}
+
+    \item \textbf{会议后}：
+    \begin{itemize}
+        \item 在 48 小时内发送跟进邮件（趁记忆犹新）
+        \item 分享相关论文或资源
+        \item 考虑合作机会
+        \item 通过社交媒体/邮件保持联系
+        \item 将新联系人添加到你的人脉表中
+    \end{itemize}
+\end{enumerate}
+
+\textbf{实用对话开场白：}
+\begin{itemize}
+    \item "是什么吸引你来参加这个会议的？"
+    \item "我非常喜欢你关于 X 的报告/海报。你考虑过 Y 吗？"
+    \item "你最期待哪些报告？"
+    \item "你的工作与[当前 session 主题]有什么关系？"
+    \item "我也在做类似的工作——能否请教你对 X 的看法？"
+\end{itemize}
+
+\textbf{内向者的社交技巧：}
+\begin{itemize}
+    \item \textbf{设定小目标}：每天认识 2-3 个新人，而不是 20 个
+    \item \textbf{伙伴系统}：和一个更外向的同事一起社交
+    \item \textbf{志愿服务}：当 session 主持人或志愿者会给你一个角色
+    \item \textbf{一对一会面}：安排咖啡聊天而不是参加群体活动
+    \item \textbf{适时休息}：在 session 之间到外面充电
+\end{itemize}
+
+\subsubsection{在线存在感}
+
+\textbf{研究者必备平台：}
+\begin{itemize}
+    \item \textbf{Google Scholar}：追踪引用并创建你的个人档案
+    \item \textbf{Twitter/X}：关注研究者，分享论文，参与讨论
+    \item \textbf{LinkedIn}：职业网络和工作机会
+    \item \textbf{GitHub}：分享代码和协作项目
+    \item \textbf{个人网站}：你的工作和研究陈述的作品集
+\end{itemize}
+
+\subsubsection{在线打造你的研究品牌}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title={战略性平台使用}]
+\textbf{专注于 2-3 个平台并保持一致：}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{LinkedIn}：职业更新，与研究者建立联系，加入学术群组
+    \item \textbf{Twitter/X}：分享论文、会议见闻，与研究社区互动
+    \item \textbf{Handshake}：工业界机会和实习
+    \item \textbf{Google Scholar}：保持发表记录更新
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=orange!60,title={现实的更新频率}]
+\textbf{可持续的发帖频率：}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{LinkedIn}：每月 1-2 次（重大更新、论文、成就）
+    \item \textbf{Twitter/X}：每周 1-2 次（分享论文、想法、转发）
+    \item \textbf{个人网站}：每月更新
+    \item \textbf{GitHub}：发布代码/项目时
+\end{itemize}
+
+\textbf{关键原则}：一致性比频率更重要。每周可靠地发一次帖，胜过一个月每天发帖然后消失。
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5,colframe=blue!40,title={内容策略}]
+\textbf{分享什么：}
+\begin{itemize}[leftmargin=1.5em]
+    \item 你发表的论文，附 1-2 句摘要
+    \item 你领域中他人的有趣论文
+    \item 会议参会和关键收获
+    \item 研究里程碑和成就
+    \item 对热门研究话题的深思熟虑的评论
+\end{itemize}
+
+\textbf{80/20 法则}：80\% 分享他人的工作和见解，20\% 自我推广
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=purple!5,colframe=purple!40,title={快速启动清单}]
+\begin{enumerate}
+    \item 选择 2 个主要平台来专注
+    \item 在所有平台使用相同的专业照片
+    \item 写清楚简介："[大学] 博士生，研究方向为 [具体话题]"
+    \item 关注你领域的 20-30 位关键研究者
+    \item 设置每周提醒来发帖/互动
+    \item 先评论再建立联系——逐步建立关系
+\end{enumerate}
+
+\textbf{关键要点：}
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{从小处开始}：不要试图同时出现在所有平台
+    \item \textbf{保持真实}：分享真实想法，而不仅仅是公告
+    \item \textbf{有意义地互动}：互动质量 $>$ 数量
+    \item \textbf{保持一致}：定期的适度活动胜过偶尔的爆发
+\end{itemize}
+\end{tcolorbox}
+
+\subsubsection{建立你的学术网站}
+
+\begin{tcolorbox}[colback=green!5,colframe=green!50,title=你的数字学术身份]
+你的个人网站通常是别人搜索你名字时的第一个结果。这是你掌控自己叙事、专业展示工作的机会。
+\end{tcolorbox}
+
+\textbf{为什么你需要个人网站：}
+\begin{itemize}
+    \item Google 搜索你名字的第一个结果——掌控别人看到的内容
+    \item 展示论文之外的工作（代码、可视化、博客文章）
+    \item 求职的专业展示
+    \item 链接你所有其他档案的中心枢纽
+\end{itemize}
+
+\textbf{推荐网站模板：}
+
+\textbf{1. 静态网站生成器（在 GitHub Pages 上免费托管）：}
+\begin{itemize}
+    \item \textbf{\href{https://github.com/wowchemy/starter-hugo-academic}{Hugo Academic}}
+    \begin{itemize}
+        \item 研究者最受欢迎的模板
+        \item 内置发表管理
+        \item 简洁、专业的设计
+        \item 活跃的社区支持
+    \end{itemize}
+
+    \item \textbf{\href{https://github.com/alshedivat/al-folio}{al-folio}}
+    \begin{itemize}
+        \item 适合学术的美观 Jekyll 主题
+        \item 极简、优雅的设计
+        \item 出色的发表和项目页面
+        \item 被许多 CS 研究者使用
+    \end{itemize}
+
+    \item \textbf{\href{https://github.com/academicpages/academicpages.github.io}{AcademicPages}}
+    \begin{itemize}
+        \item Minimal Mistakes 主题的分支
+        \item 易于自定义
+        \item 适合初学者
+        \item 有分步设置指南
+    \end{itemize}
+
+
+    \item \textbf{\href{https://jekyllrb.com/}{Jekyll}} 学术主题
+    \begin{itemize}
+        \item \href{https://github.com/mmistakes/minimal-mistakes}{Minimal Mistakes} - 高度可定制的 Jekyll 主题
+        \item \href{https://github.com/sproogen/modern-resume-theme}{Modern Resume} - 简洁的简历/CV 导向
+        \item \href{https://github.com/jekyll/minima}{Minima} - Jekyll 的默认主题，非常简单
+        \item \href{https://github.com/daattali/beautiful-jekyll}{Beautiful Jekyll} - 即用型模板
+        \item 在 GitHub Pages 上免费托管，支持自定义域名
+    \end{itemize}
+\end{itemize}
+
+\textbf{2. 更动态的网站：}
+\begin{itemize}
+    \item \textbf{Next.js/React 模板}：现代、快速，适合会编程的 CS 学生
+    \item \textbf{WordPress 学术主题}：无需编程，更新更容易
+    \item \textbf{Notion/Carrd}：快速搭建，定制化有限
+\end{itemize}
+
+\textbf{必备页面：}
+\begin{enumerate}
+    \item \textbf{主页/关于}：专业照片、简要介绍、研究兴趣
+    \item \textbf{发表}：论文附 PDF/链接，按年份组织
+    \item \textbf{项目/研究}：当前和过去的项目及描述
+    \item \textbf{CV/简历}：可下载的 PDF，始终保持最新
+    \item \textbf{博客}（可选）：技术文章、研究动态
+    \item \textbf{联系方式}：邮箱、办公地点、社交媒体链接
+\end{enumerate}
+
+\textbf{快速搭建技巧：}
+\begin{itemize}
+    \item 从模板开始——不要从零构建
+    \item 使用 Google Scholar 管理发表引用
+    \item 包含 SEO 关键词（你的研究方向、大学等）
+    \item 保持设计简洁专业——内容优先于美学
+    \item 至少每季度更新一次（每篇论文/项目之后）
+    \item 在手机上测试——很多人用手机浏览
+\end{itemize}
+
+
+\subsection{博士生必读清单}
+
+\begin{tcolorbox}[colback=blue!5,colframe=darkblue,title=必读书籍和文章]
+这些阅读材料为博士旅程、研究生活和学术职业发展提供了宝贵的见解。每一本都帮助了成千上万的学生更有效地完成他们的博士学业。
+\end{tcolorbox}
+
+\subsubsection{核心博士经历}
+
+\begin{itemize}
+    \item \textbf{\href{http://linyun.info/phd-grinding.pdf}{The PhD Grind}，Philip Guo 著}
+    \begin{itemize}
+        \item 一位学生在斯坦福大学计算机科学博士六年旅程的坦诚回忆录
+        \item 提供对挣扎、失败和最终成功的真实洞察
+        \item 理解博士生活的情感和实际现实的必读之作
+        \item 可在线免费获取：\url{http://linyun.info/phd-grinding.pdf}
+    \end{itemize}
+
+\end{itemize}
+
+\subsubsection{职业与专业发展}
+
+\begin{itemize}
+    \item \textbf{\href{https://www.amazon.com/PhD-Not-Enough-Survival-Science/dp/0465022227}{A PhD Is Not Enough!}}，Peter J. Feibelman 著
+    \begin{itemize}
+        \item 博士毕业后建立成功科学职业的指南
+        \item 涵盖社交网络、求职、写基金和职业规划
+        \item 从学生到专业研究者转型的实用建议
+    \end{itemize}
+
+    \item \textbf{\href{https://www.amazon.com/Getting-What-You-Came-For/dp/0374524777}{Getting What You Came For}}，Robert Peters 著
+    \begin{itemize}
+        \item 选择和成功完成研究生学业的全面指南
+        \item 涵盖从选导师到答辩的方方面面
+        \item 包括时间管理和维持心理健康的策略
+    \end{itemize}
+
+    \item \textbf{\href{https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692}{Deep Work（深度工作）}}，Cal Newport 著
+    \begin{itemize}
+        \item 在分散注意力的世界中专注工作的策略
+        \item 对研究和写作特别相关
+        \item 最大化认知能力的技巧
+    \end{itemize}
+
+    \item \textbf{\href{https://www.amazon.com/Habits-Highly-Effective-People-Powerful/dp/1982137274}{The 7 Habits of Highly Effective People（高效能人士的七个习惯）}}，Stephen Covey 著
+    \begin{itemize}
+        \item 时间管理和个人效能
+        \item 适用于研究和合作的原则
+        \item 长期成功和生活平衡的框架
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{在线资源与博客}
+
+\begin{itemize}
+    \item \textbf{\href{https://matt.might.net/articles/phd-school-in-pictures/}{The Illustrated Guide to a PhD}}，Matt Might 著
+    \begin{itemize}
+        \item 用图画解释博士到底意味着什么
+        \item 帮助在困难时期保持视角
+        \item 被全球博士生广泛分享和赞赏
+    \end{itemize}
+
+    \item \textbf{\href{https://phdcomics.com/}{PhD Comics}}，Jorge Cham 著
+    \begin{itemize}
+        \item 对研究生生活的幽默呈现
+        \item 提供喜剧般的安慰和社区感
+        \item 涉及常见的博士经历和挑战
+    \end{itemize}
+
+    \item \textbf{\href{https://www.nature.com/nature/articles?type=career-column}{Nature 职业专栏}}
+    \begin{itemize}
+        \item 关于研究职业和博士生活的定期文章
+        \item 来自资深研究者的建议
+        \item 学术就业市场的最新视角
+    \end{itemize}
+
+    \item \textbf{\href{https://academia.stackexchange.com/}{Academia Stack Exchange}}
+    \begin{itemize}
+        \item 学术生活问题的问答平台
+        \item 关于常见博士挑战的社区智慧
+        \item 具体问题的实用解决方案
+    \end{itemize}
+\end{itemize}
+
+\begin{tcolorbox}[colback=yellow!10,colframe=red!50,title=阅读推荐]
+从 \textbf{The PhD Grind} 开始——它简短、免费，会给你对博士旅程的现实预期。在开始读博之前或在第一年阅读它，更好地了解前方的路。
+\end{tcolorbox}
+
+\appendix
+
+\newpage
+
+\section{演示检查清单}
+
+每次演示前，验证：
+
+\begin{itemize}
+    \item[$\Box$] 标题页包含所有必要信息
+    \item[$\Box$] 大纲与实际内容一致
+    \item[$\Box$] 所有图表都有标注坐标轴
+    \item[$\Box$] 所有图表都有描述性说明
+    \item[$\Box$] 实验设置已清楚解释
+    \item[$\Box$] 结果与假设相关联
+    \item[$\Box$] 包含致谢
+    \item[$\Box$] 演示在时间限制内
+    \item[$\Box$] 幻灯片已编号
+    \item[$\Box$] 参考文献已正确引用
+\end{itemize}
+
+\section{图表检查清单}
+
+对于每张图表，确保：
+
+\begin{itemize}
+    \item[$\Box$] 标题清晰说明展示的内容
+    \item[$\Box$] X 轴已标注单位
+    \item[$\Box$] Y 轴已标注单位
+    \item[$\Box$] 图例解释了所有符号/颜色
+    \item[$\Box$] 投影时字号可读
+    \item[$\Box$] 配色方案具有无障碍性
+    \item[$\Box$] 显示了误差线/置信区间
+    \item[$\Box$] 说明文字解释了关键发现
+\end{itemize}
+
+\section{研究工具和资源}
+
+\subsection{推荐软件}
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{类别} & \textbf{工具} & \textbf{用途} \\
+\midrule
+版本控制 & Git、GitHub & 代码管理 \\
+写作 & \LaTeX{}（Overleaf）、Markdown & 文档和论文 \\
+数据可视化 & Matplotlib、Seaborn、Plotly & 创建图表 \\
+绘图工具 & Mermaid、PlantUML & 流程图和示意图 \\
+笔记 & Notion、Obsidian、Roam & 研究笔记 \\
+\bottomrule
+\end{tabular}
+\caption{CS 和 AI 研究者的必备研究工具}
+\end{table}
+
+\subsection{终端设置推荐}
+
+\textbf{升级你的终端体验：iTerm2 + Oh My Zsh}
+
+为了显著改善开发体验，我们强烈推荐将默认的 macOS 终端替换为：
+\begin{itemize}
+    \item \textbf{iTerm2}：强大的终端模拟器
+    \item \textbf{zsh}：现代 shell（macOS 默认）
+    \item \textbf{Oh My Zsh}：管理 zsh 配置的框架
+    \item \textbf{Powerlevel10k}：美观且信息丰富的主题
+\end{itemize}
+
+\textbf{主要优势：}
+\begin{itemize}
+    \item 终端界面非常酷炫——默认显示路径、时间、git 状态、conda 环境等
+    \item 支持标签页和窗格分割，无需打开多个窗口
+    \item 流畅的语法高亮和自动补全——体验非常好
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{iterm2.png}
+\caption{配合 Powerlevel10k 主题的 iTerm2，显示 git 状态、conda 环境等}
+\end{figure}
+
+\subsection{可视化与绘图工具}
+
+\textbf{研究可视化的进阶工具}
+
+\subsubsection{Excalidraw}
+\textbf{网站：} \url{https://excalidraw.com/}
+
+Excalidraw 是一个虚拟白板工具，能让你轻松创建美观的手绘风格图表：
+\begin{itemize}
+    \item \textbf{特别适合：} 快速架构图、流程图和概念示意图
+    \item \textbf{主要功能：}
+    \begin{itemize}
+        \item 手绘美学，非常适合非正式演示
+        \item 实时协作，用于团队头脑风暴
+        \item 导出为 PNG、SVG 和剪贴板
+        \item 完全在浏览器中运行——无需安装
+    \end{itemize}
+    \item \textbf{研究应用：}
+    \begin{itemize}
+        \item 设计阶段的系统架构草图
+        \item 演示用的算法流程图
+        \item 头脑风暴会议的可视化
+        \item 组会用的快速示意图
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{PlotNeuralNet}
+\textbf{仓库：} \url{https://github.com/HarisIqbal88/PlotNeuralNet}
+
+PlotNeuralNet 是一个基于 \LaTeX{} 的工具，专门用于创建出版质量的神经网络架构图：
+\begin{itemize}
+    \item \textbf{特别适合：} 研究论文、学位论文图表和技术演示
+    \item \textbf{主要功能：}
+    \begin{itemize}
+        \item 创建专业的 3D 神经网络可视化
+        \item 完全可定制的层和连接
+        \item 所有图表的一致样式
+        \item 生成 \LaTeX{}/TikZ 代码，方便集成
+    \end{itemize}
+    \item \textbf{研究应用：}
+    \begin{itemize}
+        \item CNN/RNN/Transformer 架构插图
+        \item 符合出版标准的论文和学位论文图表
+        \item 模型架构的技术文档
+        \item 会议海报演示
+    \end{itemize}
+    \item \textbf{进阶技巧：} 从提供的示例开始，修改它们以匹配你的特定架构——这比从头构建容易得多！
+\end{itemize}
+
+\subsection{系统资源监控与性能优化}
+
+\textbf{高效开发的必备技能}
+
+作为处理数据和深度学习的研究者，监控系统资源和利用并行处理是能显著提高生产力和代码效率的关键技能。
+
+\subsubsection{系统资源监控}
+
+\textbf{为什么要监控资源？}
+\begin{itemize}
+    \item 识别数据处理流水线中的瓶颈
+    \item 及早发现内存泄漏和低效代码
+    \item 优化深度学习任务的 GPU 利用率
+    \item 防止资源耗尽导致系统崩溃
+    \item 验证并行处理是否正常工作
+\end{itemize}
+
+\textbf{必备监控工具：}
+\begin{itemize}
+    \item \textbf{htop}：交互式进程查看器，显示每个核心的实时 CPU 使用率
+    \item \textbf{nvtop}：NVIDIA 显卡的 GPU 监控（GPU 利用率、显存、温度）
+    \item \textbf{gpustat}：简单的命令行 GPU 状态查看器
+    \item \textbf{btop}：现代资源监控器，带美观图表和实时更新
+    \item \textbf{nvidia-smi}：内置的 NVIDIA GPU 监控工具
+\end{itemize}
+
+\subsubsection{并行处理提升效率}
+
+\textbf{串行 vs 并行处理对比：}
+
+\begin{verbatim}
+串行处理：      [任务 1] -> [任务 2] -> [任务 3] -> [任务 4]
+               时间: ================================
+
+并行处理：      [任务 1] [任务 2]
+               [任务 3] [任务 4]
+               时间: ================
+
+结果：约 4 倍速度提升（理想情况）
+\end{verbatim}
+
+\textbf{性能对比示例：}
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{任务} & \textbf{串行时间} & \textbf{并行时间（4 核）} & \textbf{加速比} \\
+\midrule
+数据预处理 & 100s & 28s & 3.6x \\
+模型训练（CPU） & 240s & 65s & 3.7x \\
+批量推理 & 60s & 18s & 3.3x \\
+图像处理 & 180s & 48s & 3.8x \\
+\bottomrule
+\end{tabular}
+\caption{并行化的典型性能提升}
+\end{table}
+
+\textbf{实用实现示例：}
+\begin{itemize}
+    \item \textbf{Python}：使用 \texttt{multiprocessing}、\texttt{concurrent.futures} 或 \texttt{joblib}
+    \item \textbf{NumPy/Pandas}：向量化操作代替循环
+    \item \textbf{深度学习}：批处理、DataLoader 设置 \texttt{num\_workers $>$ 0}
+    \item \textbf{数据处理}：将 \texttt{map()} 转换为 \texttt{parallel\_map()}
+\end{itemize}
+
+\subsubsection{最佳实践与监控指南}
+
+\textbf{开发过程中需要监控的内容：}
+\begin{itemize}
+    \item \textbf{CPU 使用率}：并行处理时目标 $>$80\% 跨所有核心的利用率
+    \item \textbf{内存使用}：注意内存泄漏；避免交换到磁盘
+    \item \textbf{GPU 利用率}：深度学习训练时应 $>$90\%
+    \item \textbf{I/O 等待}：高 I/O 等待表明数据加载瓶颈
+\end{itemize}
+
+\textbf{常见并行处理陷阱：}
+\begin{itemize}
+    \item I/O 瓶颈限制并行收益
+    \item Python 的 GIL（CPU 任务使用 multiprocessing 而非 threading）
+    \item 创建过多小型并行任务的开销
+    \item 内存不足导致频繁换页
+\end{itemize}
+
+\textbf{快速参考命令：}
+
+\begin{lstlisting}[style=bashstyle, caption=系统监控命令]
+# Monitor CPU usage
+htop                    # Interactive CPU monitor
+top -u                  # Alternative CPU monitor
+
+# Monitor GPU (NVIDIA)
+nvidia-smi -l 1        # Updates every 1 second
+nvtop                  # Interactive GPU monitor
+gpustat -i 1           # Simple GPU status
+\end{lstlisting}
+
+\begin{lstlisting}[style=pythonstyle, caption=Python 并行处理示例]
+# Python parallel example
+from multiprocessing import Pool
+
+def process_func(item):
+    # Your processing logic here
+    return item * 2
+
+with Pool() as p:
+    results = p.map(process_func, data_list)
+\end{lstlisting}
+
+\textbf{进阶技巧：}
+\begin{itemize}
+    \item 实现并行化之前和之后始终进行基准测试
+    \item 在\textbf{整个}训练过程中监控资源，而不仅仅在开始时
+    \item 对于深度学习：使用 \texttt{DataLoader(num\_workers=4-8)} 加速数据加载
+    \item 优化前先检查你的瓶颈是 CPU、GPU 还是 I/O
+\end{itemize}
+
+\vspace{1cm}
+\begin{tcolorbox}[colback=gray!10,colframe=gray!50,title=AI 声明]
+本文档中的部分文本和链接在 AI 辅助下编写。如有链接失效，敬请谅解。
+\end{tcolorbox}
+
+\end{document}
