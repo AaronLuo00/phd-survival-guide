@@ -10,8 +10,10 @@ This guide shares practical insights to help you avoid detours and accelerate yo
 
 - **Research Fundamentals** - Core principles, methodology, and best practices
 - **Productivity Systems** - Daily habits, time management, and strategic planning
+- **Health & Support** - Sleep and movement as infrastructure, friends, and when and how to talk to a counselor
 - **Publication Strategy** - Conference targeting, paper writing, and submission timelines
 - **Professional Development** - Networking, career planning, and essential resources
+- **Resource Channels** - Paper feeds, podcasts, and technical blogs worth your attention
 - **Tools & Resources** - Curated software recommendations and research tools
 
 ## 🚀 Quick Start
