@@ -1,0 +1,12 @@
+{
+  "name": "phd-survival-guide",
+  "description": "Practical mentoring for PhD students and early-career researchers, based on the New Researcher Handbook: research workflow, presentations and figures, writing, advisor meetings, publication strategy, productivity, wellbeing, and resources.",
+  "author": {
+    "name": "Xiaolong Luo (Aaron)",
+    "url": "https://aaronluo00.github.io/Aaron_Homepage/"
+  },
+  "homepage": "https://github.com/AaronLuo00/phd-survival-guide",
+  "repository": "https://github.com/AaronLuo00/phd-survival-guide",
+  "license": "MIT",
+  "keywords": ["phd", "research", "academia", "graduate-school", "mentoring"]
+}

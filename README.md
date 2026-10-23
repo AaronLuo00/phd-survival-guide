@@ -15,6 +15,7 @@ This guide shares practical insights to help you avoid detours and accelerate yo
 - **Professional Development** - Networking, career planning, and essential resources
 - **Resource Channels** - Paper feeds, podcasts, and technical blogs worth your attention
 - **Tools & Resources** - Curated software recommendations and research tools
+- **AI Skill** - The handbook's core as an installable skill for Claude and other agents ([how to install](#-use-it-as-an-ai-skill))
 
 ## 🚀 Quick Start
 
@@ -40,6 +41,65 @@ pdflatex new-researcher-handbook.tex
 # Compile plain version
 pdflatex new-researcher-handbook-plain.tex
 ```
+
+Run each `pdflatex` command two or three times so the table of contents and page numbers settle.
+
+## 🤖 Use It as an AI Skill
+
+The core of the handbook is also packaged as an Agent Skill in [`skills/phd-survival-guide`](skills/phd-survival-guide). Once installed, Claude uses it automatically when you ask about research practice or PhD life, and it can review your slides, figures, weekly updates, and paper plans against the handbook's checklists.
+
+### Claude Code
+
+In a Claude Code session (version 2.1.275 or later):
+
+```text
+/plugin install phd-survival-guide --marketplace AaronLuo00/phd-survival-guide
+```
+
+On older versions, or from your terminal:
+
+```bash
+claude plugin marketplace add AaronLuo00/phd-survival-guide
+claude plugin install phd-survival-guide@phd-survival-guide
+```
+
+Then just ask, or call it directly with `/phd-survival-guide:phd-survival-guide`.
+
+### Claude app (claude.ai and desktop)
+
+1. Download [`phd-survival-guide.zip`](https://github.com/AaronLuo00/phd-survival-guide/raw/main/dist/phd-survival-guide.zip).
+2. In **Settings > Capabilities**, turn on **Code execution and file creation**.
+3. In the **Skills** section, click **Upload skill**, choose the zip, and toggle it on.
+
+Custom skills are available on Pro, Max, Team, and Enterprise plans.
+
+### Other agents (Codex, Cursor, and more)
+
+```bash
+npx skills add AaronLuo00/phd-survival-guide
+```
+
+Or copy the `skills/phd-survival-guide` folder into your agent's skills directory (for Claude Code, `~/.claude/skills/`).
+
+### Things to try
+
+- "Review my group-meeting slides against the presentation checklist."
+- "我下周和导师开会，帮我按手册的结构准备一下。"
+- "Help me plan a realistic timeline for my next conference submission."
+- "I've felt flat for weeks and can't start working. What should I do?"
+
+<details>
+<summary>Updating the skill</summary>
+
+After editing anything in `skills/phd-survival-guide`, rebuild the upload zip and validate the plugin:
+
+```bash
+rm -f dist/phd-survival-guide.zip
+(cd skills && zip -r -X ../dist/phd-survival-guide.zip phd-survival-guide -x '*.DS_Store')
+claude plugin validate .
+```
+
+</details>
 
 ## 📝 Other Useful Guide:
 

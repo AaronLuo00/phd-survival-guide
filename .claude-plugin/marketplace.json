@@ -1,0 +1,15 @@
+{
+  "name": "phd-survival-guide",
+  "description": "The New Researcher Handbook as a Claude skill.",
+  "owner": {
+    "name": "Xiaolong Luo (Aaron)",
+    "url": "https://aaronluo00.github.io/Aaron_Homepage/"
+  },
+  "plugins": [
+    {
+      "name": "phd-survival-guide",
+      "source": "./",
+      "description": "Practical mentoring for PhD students and early-career researchers, based on the New Researcher Handbook."
+    }
+  ]
+}
