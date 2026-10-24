@@ -8,7 +8,7 @@ From the New Researcher Handbook, sections 8.7, 8.8, and Appendix C. Links were 
 - Other PhD guides
 - Software by research stage
 - Terminal setup
-- Diagram tools
+- Diagram and figure tools
 - Resource monitoring and parallel processing
 
 ## Essential reading
@@ -69,10 +69,11 @@ Read interviews instead of only listening: turn a long video into a transcript w
 
 iTerm2 + zsh + Oh My Zsh + Powerlevel10k: shows path, time, git status, and conda env by default; tabs and split panes; syntax highlighting and autocompletion.
 
-## Diagram tools
+## Diagram and figure tools
 
 - **Excalidraw** (https://excalidraw.com/): hand-drawn style whiteboard in the browser; quick architecture sketches, flowcharts, group-meeting diagrams; real-time collaboration; export PNG/SVG.
 - **PlotNeuralNet** (https://github.com/HarisIqbal88/PlotNeuralNet): LaTeX/TikZ code for publication-quality neural network diagrams. Start from the provided examples and modify them.
+- **figures4papers** (https://github.com/ChenLiu-1996/figures4papers): Python scripts for publication-quality paper figures (bar, line, radar, trend, concept plots) from published work at top AI venues, plus a figure-making skill for AI coding agents.
 
 ## Resource monitoring and parallel processing
 

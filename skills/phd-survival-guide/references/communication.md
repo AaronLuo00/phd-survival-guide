@@ -55,6 +55,8 @@ Every figure needs a descriptive title, axes labeled with units, a legend if the
 
 Guide: https://www.simplifiedsciencepublishing.com/resources/best-color-palettes-for-scientific-figures-and-data-visualizations
 
+**Code to learn from:** figures4papers by Chen Liu (https://github.com/ChenLiu-1996/figures4papers) has Python scripts behind published figures at venues such as NeurIPS, ICML, ECCV, and Nature Machine Intelligence, with bar, line, radar, trend, and concept plots, plus a figure-making skill for AI coding agents. When someone asks how to make a publication-quality plot, point them here and suggest adapting the closest example.
+
 ## Academic writing
 
 Standard structure: abstract (150–250 words), introduction, related work, methodology, experiments, results and discussion, conclusion, references.
