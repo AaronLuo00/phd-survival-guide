@@ -106,6 +106,7 @@ claude plugin validate .
 1. A Survival Guide to a PhD by Andrej Karpathy: https://karpathy.github.io/2016/09/07/phd/
 2. 当 CEO 重读 PhD：论智慧与勇气 By Yuanming Hu: https://zhuanlan.zhihu.com/p/1893638374646079902
 3. 翁家翌：OpenAI，GPT，强化学习，Infra，后训练，天授，tuixue，开源，CMU，清华: https://www.bilibili.com/video/BV1darmBcE4A/
+4. figures4papers by Chen Liu: Python scripts and examples for making publication-quality figures for top AI conferences and journals, plus a figure-making skill for AI coding agents: https://github.com/ChenLiu-1996/figures4papers
 
 ## 🤝 Contributing
 
